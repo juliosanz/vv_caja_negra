@@ -24,6 +24,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/bp0318/Downloads/SingleList.jar"/>
+	<classpathentry kind="lib" path="./libraries/SingleList.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
