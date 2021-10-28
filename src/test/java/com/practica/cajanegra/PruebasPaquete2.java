@@ -92,5 +92,10 @@ public class PruebasPaquete2 {
 		assertEquals(cincoElementos.size(),5);
 	}
 	
+	/*
+	 * 	El siguiente conjunto de tests comprueba
+	 * 	la funcionalidad del método addFirst
+	 * 	mediante Robustness for worst case
+	 */
 	
 }
