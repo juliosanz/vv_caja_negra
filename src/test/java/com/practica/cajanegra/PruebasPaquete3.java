@@ -38,6 +38,7 @@ public class PruebasPaquete3 {
 	}
 	
 
+
 	@ParameterizedTest()
 	@CsvSource({
 	"@",        
@@ -92,5 +93,6 @@ public class PruebasPaquete3 {
     @Test
     public void testToString() {
         assertTrue(lista7Elem.toString().equals("[A, B, C, D, E, F, G]"));
+        assertTrue(vacia.toString().equals("[]"));
     }
 }
