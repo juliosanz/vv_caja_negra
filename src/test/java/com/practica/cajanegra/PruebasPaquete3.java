@@ -29,9 +29,11 @@ public class PruebasPaquete3 {
 	"["
 	})
 	void addLastInvalido(String s) {
+        int sizeOri = lista3Elem.size();
 		String solucion = "[C, D, E]";
         lista3Elem.addLast(s);
         System.out.println(lista3Elem.toString());
+        assertEquals(sizeOri, lista3Elem.size());
         assertEquals(lista3Elem.toString(), solucion);
 	}
 	
@@ -57,8 +59,10 @@ public class PruebasPaquete3 {
 	"Z"
 	})
 	void addLastValido(String s) {
+        int sizeOri = lista3Elem.size();
         lista3Elem.addLast(s);
 		String solucion = "[C, D, E, " + s + "]";
+        assertEquals(sizeOri + 1, lista3Elem.size());
         assertEquals(lista3Elem.toString(), solucion);
 	}
 	
