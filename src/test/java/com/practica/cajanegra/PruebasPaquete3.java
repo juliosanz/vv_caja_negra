@@ -1,22 +1,25 @@
 package com.practica.cajanegra;
 
-import com.cajanegra.SingleLinkedListImpl;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.BeforeEach;
+import com.cajanegra.SingleLinkedListImpl;
 
 public class PruebasPaquete3 {
-	private static SingleLinkedListImpl<String> lista;
+    private static SingleLinkedListImpl<String> lista3Elem;
+    private static SingleLinkedListImpl<String> lista7Elem;
 	private static SingleLinkedListImpl<String> vacia;
 	
 	@BeforeEach
 	void init() {
-		lista= new SingleLinkedListImpl<String>("C", "D", "E");
+        lista3Elem = new SingleLinkedListImpl<String>("C", "D", "E");
+        lista7Elem = new SingleLinkedListImpl<>("A", "B", "C", "D", "E", "F", "G");
 		vacia = new SingleLinkedListImpl<String>();
 	}
 	
@@ -27,9 +30,9 @@ public class PruebasPaquete3 {
 	})
 	void addLastInvalido(String s) {
 		String solucion = "[C, D, E]";
-		lista.addLast(s);
-		System.out.println(lista.toString());
-		assertEquals(lista.toString(), solucion);
+        lista3Elem.addLast(s);
+        System.out.println(lista3Elem.toString());
+        assertEquals(lista3Elem.toString(), solucion);
 	}
 	
 
@@ -54,9 +57,36 @@ public class PruebasPaquete3 {
 	"Z"
 	})
 	void addLastValido(String s) {
-		lista.addLast(s);
+        lista3Elem.addLast(s);
 		String solucion = "[C, D, E, " + s + "]";
-		assertEquals(lista.toString(), solucion);
+        assertEquals(lista3Elem.toString(), solucion);
 	}
 	
+    // Tests getAtPost
+
+    @Test
+    public void testGetAtPosPosInvalidas() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            lista7Elem.getAtPos(0);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            lista7Elem.getAtPos(lista7Elem.size() + 1);
+        });
+    }
+
+    @Test
+    public void testGetAtPosValidas() {
+        assertEquals("A", lista7Elem.getAtPos(1));
+        assertEquals("B", lista7Elem.getAtPos(2));
+        assertEquals("C", lista7Elem.getAtPos(lista7Elem.size() / 2)); // Val. medio
+        assertEquals("F", lista7Elem.getAtPos(lista7Elem.size() - 1));
+        assertEquals("G", lista7Elem.getAtPos(lista7Elem.size())); // Ult. valor
+    }
+
+    // Test toString
+
+    @Test
+    public void testToString() {
+        assertTrue(lista7Elem.toString().equals("[A, B, C, D, E, F, G]"));
+    }
 }
