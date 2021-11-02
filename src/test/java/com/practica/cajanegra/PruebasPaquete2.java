@@ -111,6 +111,7 @@ public class PruebasPaquete2 {
 	 * 	mediante Robustness for worst case
 	 */
 	
+
 	/*
 	 * 	El siguiente conjunto de tests comprueba
 	 * 	la funcionalidad del método addNTimes
@@ -246,5 +247,123 @@ public class PruebasPaquete2 {
 				k++;
 			}
 		}
+	}
+
+	@DisplayName("Add First para una lista vacia de los casos válidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"Z",        
+	"Y", 
+	"M",
+	"B",
+	"A",
+	})
+	public void vaciaAddFirstValido(String str) {
+		vacia.addFirst(str);
+		String prueba = vacia.toString();
+		String solucion = "[" + str + "]";
+	    assertEquals(prueba, solucion);
+	}
+	
+	@DisplayName("Add First para una lista vacia de los casos inválidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"@",        
+	"["
+	})
+	public void vaciaAddFirstInvalido(String str) {
+		vacia.addFirst(str);
+		String prueba = vacia.toString();
+		String solucion = "[]";
+	    assertEquals(prueba, solucion);
+	}
+	
+	@DisplayName("Add First para una lista de un elemento de los casos válidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"Z",        
+	"Y", 
+	"M",
+	"B",
+	"A",
+	})
+	public void unElementoAddFirstValido(String str) {
+		unElemento.addFirst(str);
+		String prueba = unElemento.toString();
+		String solucion = "[" + str + ", A]";
+	    assertEquals(prueba, solucion);
+	}
+	
+	@DisplayName("Add First para una lista de un elemento de los casos inválidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"@",        
+	"["
+	})
+	public void unElementoAddFirstInvalido(String str) {
+		unElemento.addFirst(str);
+		String prueba = unElemento.toString();
+		String solucion = "[A]";
+	    assertEquals(prueba, solucion);
+	}
+	
+	
+	@DisplayName("Add First para una lista de dos elementos de los casos válidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"Z",        
+	"Y", 
+	"M",
+	"B",
+	"A",
+	})
+	public void dosElementosAddFirstValido(String str) {
+		dosElementos.addFirst(str);
+		String prueba = dosElementos.toString();
+		String solucion = "[" + str + ", A, B]";
+	    assertEquals(prueba, solucion);
+	}
+	
+	@DisplayName("Add First para una lista de dos elementos de los casos inválidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"@",        
+	"["
+	})
+	public void dosElementosAddFirstInvalido(String str) {
+		dosElementos.addFirst(str);
+		String prueba = dosElementos.toString();
+		String solucion = "[A, B]";
+	    assertEquals(prueba, solucion);
+	}
+
+	
+	@DisplayName("Add First para una lista de cinco elementos de los casos válidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"Z",        
+	"Y", 
+	"M",
+	"B",
+	"A",
+	})
+	public void cincoElementosAddFirstValido(String str) {
+		cincoElementos.addFirst(str);
+		String prueba = dosElementos.toString();
+		String solucion = "[" + str + ", A, B, C, D, E]";
+	    assertEquals(prueba, solucion);
+	}
+	
+	@DisplayName("Add First para una lista de cinco elementos de los casos inválidos")
+	@ParameterizedTest()
+	@CsvSource({
+	"@",        
+	"["
+	})
+	public void cincoElementosAddFirstInvalido(String str) {
+		cincoElementos.addFirst(str);
+		String prueba = cincoElementos.toString();
+		String solucion = "[A, B, C, D, E]";
+	    assertEquals(prueba, solucion);
 	}
 }
