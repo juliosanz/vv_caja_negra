@@ -2,7 +2,10 @@ package com.practica.cajanegra;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,15 +15,14 @@ import org.junit.jupiter.params.provider.CsvSource;
 import com.cajanegra.SingleLinkedListImpl;
 
 public class PruebasPaquete3 {
-    private static SingleLinkedListImpl<String> lista3Elem;
-    private static SingleLinkedListImpl<String> lista7Elem;
-	private static SingleLinkedListImpl<String> vacia;
+    private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos;
 	
 	@BeforeEach
 	void init() {
         lista3Elem = new SingleLinkedListImpl<String>("C", "D", "E");
         lista7Elem = new SingleLinkedListImpl<>("A", "B", "C", "D", "E", "F", "G");
 		vacia = new SingleLinkedListImpl<String>();
+        listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "A", "B", "X", "Z", "X");
 	}
 	
 	@ParameterizedTest()
@@ -81,4 +83,26 @@ public class PruebasPaquete3 {
         assertTrue(lista7Elem.toString().equals("[A, B, C, D, E, F, G]"));
         assertTrue(vacia.toString().equals("[]"));
     }
+
+    // Test indexOf
+
+    @Test
+    public void testIndexOfValidos() {
+        assertTrue(listConRepetidos.indexOf("A") == 1);
+        assertTrue(listConRepetidos.indexOf("B") == 2);
+        assertTrue(listConRepetidos.indexOf("C") == 3);
+        assertTrue(listConRepetidos.indexOf("Z") == listConRepetidos.size() - 1);
+        assertNotEquals(listConRepetidos.indexOf("X"), listConRepetidos.size());
+    }
+
+    @Test
+    public void testIndexOfInvalidos() {
+        assertThrows(NoSuchElementException.class, () -> {
+            listConRepetidos.indexOf("K");
+        });
+        assertThrows(NoSuchElementException.class, () -> {
+            listConRepetidos.indexOf("@");
+        });
+    }
+
 }
