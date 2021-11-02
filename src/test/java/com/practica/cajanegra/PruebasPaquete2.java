@@ -304,7 +304,32 @@ public class PruebasPaquete2 {
 	@MethodSource("getIsSublistParameters")
 	public void isSublistTest(int t, int p)
 	{
+		String strSolucion = nElementos.toString();
+		String part = new String();
+		if (t == 0) {
+			String part0 = "[]";
+		} else {
+			int tLista = nElementos.toString().length();
+			switch(p) {
+			case 1: String part1 = "[" + nElementos.toString().substring(1+(t-1)*3, tLista-(tLista-1)) + "]";
+					break;
+			case 2: String part2 = "[" + nElementos.toString().substring(4+(t-1)*3, tLista-(tLista-1)) + "]";
+					break;
+			case 4: String part4 = "[" + nElementos.toString().substring(10+(t-1)*3, tLista-(tLista-1)) + "]";
+					break;
+			case 6: String part6 = "[" + nElementos.toString().substring(16+(t-1)*3, tLista-(tLista-1)) + "]";
+					break;
+			case 7: String part7 = "[" + nElementos.toString().substring(19+(t-1)*3, tLista-(tLista-1)) + "]";
+			}
 		
+		
+		}
+		
+		
+	}
+	
+	public static boolean isPossible(int t, int p) {
+		return t<
 	}
 	
 	public static String[][] getIsSublistParameters()
