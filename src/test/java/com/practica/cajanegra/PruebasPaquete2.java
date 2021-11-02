@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,23 +29,32 @@ public class PruebasPaquete2 {
 	private static SingleLinkedListImpl<String> vacia;
 	private static SingleLinkedListImpl<String> unElemento;
 	private static SingleLinkedListImpl<String> dosElementos;
-	private static SingleLinkedListImpl<String> cincoElementos;
+	private static SingleLinkedListImpl<String> nElementos;
+	private static HashMap<String,SingleLinkedListImpl<String>> hmap;
 	
 	@Test
 	@BeforeAll
 	static void setUp() {
-		vacia = new SingleLinkedListImpl<String>();
-		unElemento = new SingleLinkedListImpl<String>("A");
-		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-		cincoElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E");
+	vacia = new SingleLinkedListImpl<String>();
+	unElemento = new SingleLinkedListImpl<String>("A");
+	dosElementos = new SingleLinkedListImpl<String>("A", "B");
+	nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E");
+	
+	hmap = new HashMap<String,SingleLinkedListImpl<String>>();
+	hmap.put("vacia", vacia);
+	hmap.put("unElemento", unElemento);
+	hmap.put("dosElementos", dosElementos);
+	hmap.put("nElementos", nElementos);
+
 	}
+	
 	@Test
 	@BeforeEach
 	public void init() {
 		vacia = new SingleLinkedListImpl<String>();
 		unElemento = new SingleLinkedListImpl<String>("A");
 		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-		cincoElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E");
+		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E");
 	}
 	
 	
@@ -73,9 +83,9 @@ public class PruebasPaquete2 {
 	}
 	
 	@Test
-	public void removeLastCincoElementos() throws EmptyCollectionException {
-		String prueba = cincoElementos.removeLast();
-		assertEquals(cincoElementos.size(), 4); 
+	public void removeLastNElementos() throws EmptyCollectionException {
+		String prueba = nElementos.removeLast();
+		assertEquals(nElementos.size(), 4); 
 		assertEquals(prueba, "E");
 	}
 	
@@ -101,8 +111,8 @@ public class PruebasPaquete2 {
 	}
 	
 	@Test
-	public void sizeCincoElementos() {
-		assertEquals(cincoElementos.size(),5);
+	public void sizeNElementos() {
+		assertEquals(nElementos.size(),5);
 	}
 	
 	/*
@@ -129,7 +139,7 @@ public class PruebasPaquete2 {
 		}
 		else
 		{
-			lista = cincoElementos;
+			lista = nElementos;
 		}
 		// Si n es negativo, comprobamos que lance la excepción que debe
 		// lanzar según la documentación.
@@ -248,122 +258,61 @@ public class PruebasPaquete2 {
 			}
 		}
 	}
-
-	@DisplayName("Add First para una lista vacia de los casos válidos")
-	@ParameterizedTest()
-	@CsvSource({
-	"Z",        
-	"Y", 
-	"M",
-	"B",
-	"A",
-	})
-	public void vaciaAddFirstValido(String str) {
-		vacia.addFirst(str);
-		String prueba = vacia.toString();
-		String solucion = "[" + str + "]";
-	    assertEquals(prueba, solucion);
-	}
 	
-	@DisplayName("Add First para una lista vacia de los casos inválidos")
-	@ParameterizedTest()
-	@CsvSource({
-	"@",        
-	"["
-	})
-	public void vaciaAddFirstInvalido(String str) {
-		vacia.addFirst(str);
-		String prueba = vacia.toString();
-		String solucion = "[]";
-	    assertEquals(prueba, solucion);
-	}
 	
-	@DisplayName("Add First para una lista de un elemento de los casos válidos")
+	@DisplayName("Add First para los casos válidos")
 	@ParameterizedTest()
 	@CsvSource({
-	"Z",        
-	"Y", 
-	"M",
-	"B",
-	"A",
+	"Z,vacia",  
+	"Z,unElemento",
+	"Z,dosElementos",
+	"Z,nElementos",
+	"Y,vacia",  
+	"Y,unElemento",
+	"Y,dosElementos",
+	"Y,nElementos",
+	"M,vacia",  
+	"M,unElemento",
+	"M,dosElementos",
+	"M,nElementos",
+	"B,vacia",  
+	"B,unElemento",
+	"B,dosElementos",
+	"B,nElementos",
+	"A,vacia",  
+	"A,unElemento",
+	"A,dosElementos",
+	"A,nElementos",
 	})
-	public void unElementoAddFirstValido(String str) {
-		unElemento.addFirst(str);
-		String prueba = unElemento.toString();
-		String solucion = "[" + str + ", A]";
-	    assertEquals(prueba, solucion);
-	}
-	
-	@DisplayName("Add First para una lista de un elemento de los casos inválidos")
-	@ParameterizedTest()
-	@CsvSource({
-	"@",        
-	"["
-	})
-	public void unElementoAddFirstInvalido(String str) {
-		unElemento.addFirst(str);
-		String prueba = unElemento.toString();
-		String solucion = "[A]";
-	    assertEquals(prueba, solucion);
+	public void addFirstValidos(String str, String key) {
+		SingleLinkedListImpl<String> lista = hmap.get(key);
+		String solucion = lista.toString();
+		solucion = "[" + str + ", " + solucion.substring(1);
+		lista.addFirst(str);
+		String prueba = lista.toString();
+		assertEquals(solucion, prueba);
 	}
 	
 	
-	@DisplayName("Add First para una lista de dos elementos de los casos válidos")
+	
+	@DisplayName("Add First para los casos inválidos")
 	@ParameterizedTest()
 	@CsvSource({
-	"Z",        
-	"Y", 
-	"M",
-	"B",
-	"A",
+	"@,vacia",        
+	"[,vacia",
+	"@,unElemento",        
+	"[,unElemento",
+	"@,dosElementos",        
+	"[,dosElementos",
+	"@,nElementos",        
+	"[,nElementos"
 	})
-	public void dosElementosAddFirstValido(String str) {
-		dosElementos.addFirst(str);
-		String prueba = dosElementos.toString();
-		String solucion = "[" + str + ", A, B]";
-	    assertEquals(prueba, solucion);
+	public void addFirstInvalidos(String str, String key) {
+		SingleLinkedListImpl<String> lista = hmap.get(key);
+		String solucion = lista.toString();
+		lista.addFirst(str);
+		String prueba = lista.toString();
+		assertEquals(solucion, prueba);
 	}
 	
-	@DisplayName("Add First para una lista de dos elementos de los casos inválidos")
-	@ParameterizedTest()
-	@CsvSource({
-	"@",        
-	"["
-	})
-	public void dosElementosAddFirstInvalido(String str) {
-		dosElementos.addFirst(str);
-		String prueba = dosElementos.toString();
-		String solucion = "[A, B]";
-	    assertEquals(prueba, solucion);
-	}
-
-	
-	@DisplayName("Add First para una lista de cinco elementos de los casos válidos")
-	@ParameterizedTest()
-	@CsvSource({
-	"Z",        
-	"Y", 
-	"M",
-	"B",
-	"A",
-	})
-	public void cincoElementosAddFirstValido(String str) {
-		cincoElementos.addFirst(str);
-		String prueba = dosElementos.toString();
-		String solucion = "[" + str + ", A, B, C, D, E]";
-	    assertEquals(prueba, solucion);
-	}
-	
-	@DisplayName("Add First para una lista de cinco elementos de los casos inválidos")
-	@ParameterizedTest()
-	@CsvSource({
-	"@",        
-	"["
-	})
-	public void cincoElementosAddFirstInvalido(String str) {
-		cincoElementos.addFirst(str);
-		String prueba = cincoElementos.toString();
-		String solucion = "[A, B, C, D, E]";
-	    assertEquals(prueba, solucion);
-	}
 }
