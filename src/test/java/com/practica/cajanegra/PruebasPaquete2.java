@@ -44,7 +44,7 @@ public class PruebasPaquete2 {
 	vacia = new SingleLinkedListImpl<String>();
 	unElemento = new SingleLinkedListImpl<String>("A");
 	dosElementos = new SingleLinkedListImpl<String>("A", "B");
-	nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E");
+	nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
 	
 	hmap = new HashMap<String,SingleLinkedListImpl<String>>();
 	hmap.put("vacia", vacia);
@@ -65,7 +65,7 @@ public class PruebasPaquete2 {
 		vacia = new SingleLinkedListImpl<String>();
 		unElemento = new SingleLinkedListImpl<String>("A");
 		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E");
+		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
 	}
 	
 	
@@ -109,7 +109,7 @@ public class PruebasPaquete2 {
 	"vacia,0",
 	"unElemento,1",
 	"dosElementos,2",
-	"nElementos,5"
+	"nElementos,7"
 	})
 	public void sizeTest(String key, int size) {
 		SingleLinkedListImpl<String> lista = hmap.get(key);
@@ -196,10 +196,10 @@ public class PruebasPaquete2 {
 	 */
 	public String[] getLetras(SingleLinkedListImpl lista)
 	{
-		String cincoElementosString = lista.toString();
+		String nElementosString = lista.toString();
 		
 		ArrayList<String> allMatches = new ArrayList<String>();
-		Matcher m = Pattern.compile("[A-Z]").matcher(cincoElementosString);
+		Matcher m = Pattern.compile("[A-Z]").matcher(nElementosString);
 		while (m.find()) {
 		   allMatches.add(m.group());
 		}
@@ -295,8 +295,26 @@ public class PruebasPaquete2 {
 		String prueba = lista.toString();
 		assertEquals(solucion, prueba);
 	}
+	/**
+	 * 
+	 * @param t referencia el tamaño de la lista que vamos a buscar
+	 * @param p referencia la posicion a partir de la que se encuentra la subLista
+	 */
+	@ParameterizedTest()
+	@MethodSource("getIsSublistParameters")
+	public void isSublistTest(int t, int p)
+	{
+		
+	}
 	
-	
+	public static String[][] getIsSublistParameters()
+	{
+		String[] tamanos = { "0", "1", "2", "4", "5", "6" };
+		String[] posiciones = { "1", "2", "4", "6", "7" };
+		String[][] parametros = new String[tamanos.length * posiciones.length][2];
+		getCartesian(tamanos, posiciones, parametros, 0);
+		return parametros;
+	}
 	
 	/**
 	 * Copia el producto cartesiano de dos arrays de strings en una matriz
