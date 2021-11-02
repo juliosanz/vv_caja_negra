@@ -233,27 +233,6 @@ public class PruebasPaquete2 {
 		return casosDePrueba;
 	}
 	
-	/**
-	 * Copia el producto cartesiano de dos arrays de strings en una matriz
-	 * de strings a partir de la fila "start" de la matriz.
-	 * @param params1 El primer string del producto cartesiano
-	 * @param params2 El segundo string del producto cartesiano
-	 * @param cartesianMatrix La matriz donde se copiará el producto cartesiano
-	 * @param start A partir de qué fila de la matriz copiar el producto cartesiano
-	 */
-	public static void getCartesian(String[] params1, String[] params2, String[][] cartesianMatrix, int start)
-	{
-		int k = start;
-		for(int i = 0; i < params1.length; i++)
-		{
-			for(int j = 0; j < params2.length; j++)
-			{
-				cartesianMatrix[k][0] = params1[i];
-				cartesianMatrix[k][1] = params2[j];
-				k++;
-			}
-		}
-	}
 	
 	
 	/*
@@ -316,5 +295,30 @@ public class PruebasPaquete2 {
 		String prueba = lista.toString();
 		assertEquals(solucion, prueba);
 	}
+	
+	
+	
+	/**
+	 * Copia el producto cartesiano de dos arrays de strings en una matriz
+	 * de strings a partir de la fila "start" de la matriz.
+	 * @param params1 El primer string del producto cartesiano
+	 * @param params2 El segundo string del producto cartesiano
+	 * @param cartesianMatrix La matriz donde se copiará el producto cartesiano
+	 * @param start A partir de qué fila de la matriz copiar el producto cartesiano
+	 */
+	public static void getCartesian(String[] params1, String[] params2, String[][] cartesianMatrix, int start)
+	{
+		int k = start;
+		for(int i = 0; i < params1.length; i++)
+		{
+			for(int j = 0; j < params2.length; j++)
+			{
+				cartesianMatrix[k][0] = params1[i];
+				cartesianMatrix[k][1] = params2[j];
+				k++;
+			}
+		}
+	}
+	
 	
 }
