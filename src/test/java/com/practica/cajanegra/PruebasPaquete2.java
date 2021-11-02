@@ -32,6 +32,12 @@ public class PruebasPaquete2 {
 	private static SingleLinkedListImpl<String> nElementos;
 	private static HashMap<String,SingleLinkedListImpl<String>> hmap;
 	
+	/*
+	 * En el beforeAll asignamos valores al hashMap que usaremos
+	 * en algunos de los métodos, por lo que también instanciamos
+	 * cada una de las listas.
+	 */
+	
 	@Test
 	@BeforeAll
 	static void setUp() {
@@ -48,6 +54,11 @@ public class PruebasPaquete2 {
 
 	}
 	
+	/*
+	 * En el beforeEach reinstanciamos las variables que referencian cada 
+	 * lista utilizada para asegurarnos de la atomicidad en cada método.
+	 * 
+	 */
 	@Test
 	@BeforeEach
 	public void init() {
@@ -64,62 +75,47 @@ public class PruebasPaquete2 {
 	 * 	mediante Robustness for worst case
 	 */
 	@Test
-	public void removeLastVacia() {
+	public void removeLastVaciaTest() {
 		assertThrows(EmptyCollectionException.class, () -> {vacia.removeLast();});
 	}
 	
-	@Test
-	public void removeLastUnElemento() throws EmptyCollectionException {
-		String prueba = unElemento.removeLast();
-		assertEquals(unElemento.size(), 0); //CUIDADO CON ESTO POR FAVOR ES SIZE NO SABEMOS SI FUNCIONAAAAAA QUE HACEMOS?????
-		assertEquals(prueba, "A");
-	}
-	
-	@Test
-	public void removeLastDosElementos() throws EmptyCollectionException {
-		String prueba = dosElementos.removeLast();
-		assertEquals(unElemento.size(), 1); 
-		assertEquals(prueba, "B");
-	}
-	
-	@Test
-	public void removeLastNElementos() throws EmptyCollectionException {
-		String prueba = nElementos.removeLast();
-		assertEquals(nElementos.size(), 4); 
-		assertEquals(prueba, "E");
-	}
-	
-	/*
-	 * 	El siguiente conjunto de tests comprueba
-	 * 	la funcionalidad del método Size
-	 * 	mediante Robustness for worst case
-	 */
-	
-	@Test
-	public void sizeVacio() {
-		assertEquals(vacia.size(),0);
-	}
-	
-	@Test
-	public void sizeUnElemento() {
-		assertEquals(unElemento.size(),1);
-	}
-	
-	@Test
-	public void sizeDosElementos() {
-		assertEquals(dosElementos.size(),2);
-	}
-	
-	@Test
-	public void sizeNElementos() {
-		assertEquals(nElementos.size(),5);
+	@DisplayName("Remove last de una lista no vacía")
+	@ParameterizedTest()
+	@CsvSource({
+	"unElemento",
+	"dosElementos",
+	"nElementos"
+	})
+	public void removeLastNotEmptyTest(String key) throws EmptyCollectionException {
+		SingleLinkedListImpl<String> lista = hmap.get(key);
+		String strSolucion = "[]";
+		if(lista.size()!=1) {
+			strSolucion = lista.toString().substring(0,lista.toString().length()-4) + "]";
+		}
+		String elemSolucion = lista.toString().substring(lista.toString().length()-2, lista.toString().length()-1);
+		String elemPrueba = lista.removeLast();
+		assertEquals(elemSolucion, elemPrueba);
+		assertEquals(strSolucion, lista.toString());
 	}
 	
 	/*
-	 * 	El siguiente conjunto de tests comprueba
-	 * 	la funcionalidad del método addFirst
-	 * 	mediante Robustness for worst case
+	 * 	El siguiente test comprueba la 
+	 *  funcionalidad del método Size
 	 */
+	
+	@DisplayName("Testea size Parametrizado")
+	@ParameterizedTest()
+	@CsvSource({
+	"vacia,0",
+	"unElemento,1",
+	"dosElementos,2",
+	"nElementos,5"
+	})
+	public void sizeTest(String key, int size) {
+		SingleLinkedListImpl<String> lista = hmap.get(key);
+		assertEquals(size, lista.size());
+		
+	}
 	
 
 	/*
@@ -259,6 +255,12 @@ public class PruebasPaquete2 {
 		}
 	}
 	
+	
+	/*
+	 * 	El siguiente conjunto de tests comprueba
+	 * 	la funcionalidad del método addFirst
+	 * 	mediante Robustness for worst case
+	 */
 	
 	@DisplayName("Add First para los casos válidos")
 	@ParameterizedTest()
