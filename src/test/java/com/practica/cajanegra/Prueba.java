@@ -21,12 +21,22 @@ public class Prueba {
 	  * la lista es de string o char
 	  * 
 	  * */
+	 
+	 /*
+	  * Inicializamos una lista dummie cada vez que se ejecuta un test 
+	  * */
 	@BeforeEach
 	public void setup() {
 	       mylist = new SingleLinkedListImpl<String>("L", "M", "N", "O", "P", "Q");
 	}
 
-   
+   /*
+    * 
+    * addAtPos
+
+    * Inserta el elemento {0} en la posición {1}. La lista debe modificarse de tal
+    *  forma que coincida con el {3}
+    *  */
    @ParameterizedTest(name= "{index} => añade el elemento {0} en la posición {1}")
    @CsvSource(delimiter=':', 
    value={
@@ -74,7 +84,12 @@ public class Prueba {
    }
    
    
-   
+   /*
+    * addAtPos
+	*
+    * Intenta insertar el elmento {0} en la posición 0.
+    * El resultado esperado es que de una excepción en cada ejecución.
+    * */
    @ParameterizedTest(name= "{index} => intenta añadir el elemento {0} en la posición 0")
    @CsvSource(value={
 	   "A", "B", "M", "Y", "Z", "[", "@"
@@ -86,7 +101,17 @@ public class Prueba {
        });
    }
    
-   
+   /*
+    * addAtPos
+    * 
+    * Intenta insertar el elemento {0} en la posición {1}.
+    * El resultado esperado es que la lista quede sin modificar
+    * 
+    * Este es el unico test que no cumple la especificación. 
+    * La lista debería quedar intacta, pero se produce la inserción de los caracteres
+    * que están fuera del dominio
+    * 
+    * */
    @ParameterizedTest(name="{index} => intenta añadir el elemento {0} en la posición {1}")
    @CsvSource(delimiter=':', value= {
 		   "@: 1",
@@ -104,49 +129,79 @@ public class Prueba {
 		   "[: 8",
 		   
    })
-   /*
-    * Esta es el unico test que no cumple la especificacion. 
-    * La lista debería quedar intacta, pero se produce la inserción de los caracteres
-    * que están fuera del dominio
-    * 
-    * */
+
    void fueraDelDominio(String element, int pos) {
 	   String mylistExpected= mylist.toString();
 	   mylist.addAtPos(element, pos);
 	   assertEquals(mylistExpected, mylist.toString());
    }
    
+   
+   /*
+    * isEmpty
+    * 
+    * Creamos listas con un elemento o más y nos aseguramos de que no están vacías
+    * */
 	@ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no está vacía")
-	@CsvSource(value = { "A,:false", "A,B:false", "A,B,C,D,E,F,G,H:false" }, delimiter = ':')
-	void testIsNotEmpty (String list, String esperado) {
-		String[ ] elements = list.split(",");
-		SingleLinkedListImpl aux = new SingleLinkedListImpl();
-		for (String letra: elements)
-			aux.addLast(letra);
-		assertEquals(Boolean.parseBoolean(esperado), aux.isEmpty());
-	}
+	@CsvSource(value = { 
+			
+			"A,:false",
+			"A,B:false", 
+			"A,B,C,D,E,F,G,H:false"
+			
+			}, delimiter = ':')
 	
+	void testIsNotEmpty (String list, String esperado) {
+		crearLista(list);
+		assertEquals(Boolean.parseBoolean(esperado), mylist.isEmpty());
+	}
+	/*
+	 * isEmpty
+	 * 
+	 * Creamos una lista vacía y comprobamos que está vacía
+	 * */
 	@Test
 	void testIsEmpty() {
-		SingleLinkedListImpl<String> listaVacia=new SingleLinkedListImpl<String>();
-		assertEquals(true, listaVacia.isEmpty());
+		mylist=new SingleLinkedListImpl<String>();
+		assertEquals(true, mylist.isEmpty());
 	}
 	
-	
+	/*
+	 *reverse
+	 *
+	 * Comprueba que la lista [{0}] se convierte en {1}
+	 * */
 	@ParameterizedTest(name="{index} => Comprueba que la lista [{0}] se convierte en {1}")
-	@CsvSource(value = { "A:[A]", "A,B:[B, A]", "A,B,C,D,E,F,G,H:[H, G, F, E, D, C, B, A]"}, delimiter = ':')
+	@CsvSource(value = { 
+			"A:[A]",
+			"A,B:[B, A]",
+			"A,B,C,D,E,F,G,H:[H, G, F, E, D, C, B, A]"},
+	delimiter = ':')
 	void testReverse (String list, String expected) {
-		String[ ] elements = list.split(",");
-		SingleLinkedListImpl aux = new SingleLinkedListImpl();
-		for (String letra: elements)
-			aux.addLast(letra);
-		assertEquals(expected, aux.reverse().toString());
+		crearLista(list);
+		assertEquals(expected, mylist.reverse().toString());
 	}
 	
+	/*
+	 * convierte una lista separada por comas en un objeto SingleLinkedListImpl y lo
+	 * asigna al atributo mylist de la clase 
+	 * */
+	void crearLista(String list) {
+		String[ ] elements = list.split(",");
+		 mylist = new SingleLinkedListImpl();
+		for (String letra: elements)
+			mylist.addLast(letra);
+	}
+	
+	/*
+	 * reverse
+	 * 
+	 * Creamos una lista vacía y comprobamos que al hacer reverse se queda como está
+	 * */
 	@Test
 	void testReverseEmpty() {
-		SingleLinkedListImpl<String> listaVacia=new SingleLinkedListImpl<String>();
-		assertEquals("[]", listaVacia.reverse().toString());
+		 mylist=new SingleLinkedListImpl<String>();
+		assertEquals("[]", mylist.reverse().toString());
 
 	}
 	
