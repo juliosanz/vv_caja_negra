@@ -1,5 +1,6 @@
 package com.practica.cajanegra;
 
+import com.cajanegra.EmptyCollectionException;
 import com.cajanegra.SingleLinkedList;
 import com.cajanegra.SingleLinkedListImpl;
 
@@ -10,6 +11,8 @@ import org.junit.validator.PublicClassValidator;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -79,7 +82,9 @@ public class Prueba {
 	   
    })
    void addAtPos_valid_tests( String element, int pos, String expected){
-       mylist.addAtPos(element, pos);       
+	   int size_expected=mylist.size()+1;
+       mylist.addAtPos(element, pos);
+       assertEquals(size_expected, mylist.size());
 	   assertEquals(expected, mylist.toString());
    }
    
@@ -107,7 +112,7 @@ public class Prueba {
     * Intenta insertar el elemento {0} en la posición {1}.
     * El resultado esperado es que la lista quede sin modificar
     * 
-    * Este es el unico test que no cumple la especificación. 
+    * no funciona.
     * La lista debería quedar intacta, pero se produce la inserción de los caracteres
     * que están fuera del dominio
     * 
@@ -204,6 +209,67 @@ public class Prueba {
 		assertEquals("[]", mylist.reverse().toString());
 
 	}
-	
+	/*
+	 * RemoveLast
+	 * 
+	 * Comprueba que se devuelve el elemento que se pretende borrar
+	 * Comprueba que en la lista se borra la ultima aparicion dle elemento
+	 * que se quiere borrar
+	 * 
+	 * no funciona. 
+	 * 1 si el elemento a borrar está el primero, entoces deja la lista vacía
+	 * 2 si el elemento aparece 2 veces, lo borra ambas
+	 * */
+	@ParameterizedTest(name="{index} => Elimina de la lista la última aparición de {0}")
+	@CsvSource(delimiter=':', value= {
+		"A: [A, B, M, Y, Z, B, Y, Z]",
+		"B: [A, B, M, A, Y, Z, Y, Z]",
+		"M: [A, B, A, Y, Z, B, Y, Z]",
+		"Y: [A, B, M, A, Y, Z, B, Z]",
+		"Z: [A, B, M, A, Y, Z, B, Y]",
+
+		
+
+	})
+	void testRemoveLast_valid_tests(String element, String expected) throws NoSuchElementException, EmptyCollectionException {
+		SingleLinkedListImpl<String> lista_incluye=new SingleLinkedListImpl<String>("A", "B", "M", "A", "Y", "Z", "B", "Y", "Z");
+		assertEquals(element, lista_incluye.removeLast(element));//espera elemento
+		assertEquals(expected, lista_incluye.toString());//espera lista
+		
+	}
+	/*
+	 * removelast
+	 * 
+	 * intenta eliminar un elemento de una lista vacía
+	 * */
+	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0} de una lista vacía")
+	@CsvSource( value= {
+		"@", "A","B", "M", "Y", "Z", "["
+
+	})
+	void testRemoveLast_emptylist(String element) {
+		SingleLinkedListImpl<String> lista_vacía=new SingleLinkedListImpl<String>();
+		assertThrows(EmptyCollectionException.class, () -> {
+			lista_vacía.removeLast(element);
+		});
+	}
+	/*
+	 * removeLast
+	 * 
+	 * intenta eliminar un elemento que no está en la lista
+	 * 
+	 * no funciona. devuelve null pero no salta una excepcion
+	 * */
+	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0}, que no está incluido en la lista")
+	@CsvSource(value = {
+		"@", "A","B", "M", "Y", "Z", "["
+
+	})
+	void testRemoveLastNoMatch(String element) {
+		SingleLinkedListImpl<String> lista=new SingleLinkedListImpl<String>("D", "E", "F", "G");
+		assertThrows(NoSuchElementException.class, () -> {
+			lista.removeLast(element);
+			});
+	}
    
 }
