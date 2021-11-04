@@ -22,7 +22,7 @@ public class PruebasPaquete3 {
         lista3Elem = new SingleLinkedListImpl<String>("C", "D", "E");
         lista7Elem = new SingleLinkedListImpl<>("A", "B", "C", "D", "E", "F", "G");
 		vacia = new SingleLinkedListImpl<String>();
-        listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "A", "B", "X", "Z", "X");
+        listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "M", "A", "B", "Y", "Z", "Y");
 	}
 	
 	@ParameterizedTest()
@@ -88,20 +88,23 @@ public class PruebasPaquete3 {
 
     @Test
     public void testIndexOfValidos() {
-        assertTrue(listConRepetidos.indexOf("A") == 1);
-        assertTrue(listConRepetidos.indexOf("B") == 2);
-        assertTrue(listConRepetidos.indexOf("C") == 3);
-        assertTrue(listConRepetidos.indexOf("Z") == listConRepetidos.size() - 1);
-        assertNotEquals(listConRepetidos.indexOf("X"), listConRepetidos.size());
+        assertTrue(listConRepetidos.indexOf("A") == 1); // A en primera pos.
+        assertTrue(listConRepetidos.indexOf("B") == 2); // B en segunda pos.
+        assertTrue(listConRepetidos.indexOf("M") == listConRepetidos.size() / 2); // M en pos. media
+        assertTrue(listConRepetidos.indexOf("Z") == listConRepetidos.size() - 1); // Z en penult. pos.
+        assertNotEquals(listConRepetidos.indexOf("Y"), listConRepetidos.size()); // Y repetida en ult. pos. ignorada
+        assertThrows(NoSuchElementException.class, () -> {
+            listConRepetidos.indexOf("K"); // Elem. valido en ninguna pos.
+        });
     }
 
     @Test
     public void testIndexOfInvalidos() {
         assertThrows(NoSuchElementException.class, () -> {
-            listConRepetidos.indexOf("K");
+            listConRepetidos.indexOf("@"); // Elem. no valido precedente
         });
         assertThrows(NoSuchElementException.class, () -> {
-            listConRepetidos.indexOf("@");
+            listConRepetidos.indexOf("["); // Elem. no valido posterior
         });
     }
 
