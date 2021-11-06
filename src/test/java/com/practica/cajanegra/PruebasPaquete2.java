@@ -189,28 +189,6 @@ public class PruebasPaquete2 {
 	}
 	
 	/**
-	 * Devuelve los elementos de la lista como array de strings.
-	 * @param lista
-	 * @return array de strings donde cada elemento del array
-	 * es un elemento de la lista
-	 */
-	public String[] getLetras(SingleLinkedListImpl lista)
-	{
-		String nElementosString = lista.toString();
-		
-		ArrayList<String> allMatches = new ArrayList<String>();
-		Matcher m = Pattern.compile("[A-Z]").matcher(nElementosString);
-		while (m.find()) {
-		   allMatches.add(m.group());
-		}
-		
-		String[] arrayLista = new String[allMatches.size()];
-		allMatches.toArray(arrayLista);
-		
-		return arrayLista;
-	}
-	
-	/**
 	 * Devuelve los parámetros para los tests del método AddNTimes
 	 * @return Matriz donde cada fila es un caso de prueba.
 	 */
@@ -367,6 +345,10 @@ public class PruebasPaquete2 {
 		return parametros;
 	}
 	
+	
+	
+	
+	
 	/**
 	 * Copia el producto cartesiano de dos arrays de strings en una matriz
 	 * de strings a partir de la fila "start" de la matriz.
@@ -389,5 +371,26 @@ public class PruebasPaquete2 {
 		}
 	}
 	
+	/**
+	 * Devuelve los elementos de la lista como array de strings.
+	 * @param lista
+	 * @return array de strings donde cada elemento del array
+	 * es un elemento de la lista
+	 */
+	public String[] getLetras(SingleLinkedListImpl<String> lista)
+	{
+		String nElementosString = lista.toString();
+		
+		ArrayList<String> allMatches = new ArrayList<String>();
+		Matcher m = Pattern.compile("[A-Z]").matcher(nElementosString);
+		while (m.find()) {
+		   allMatches.add(m.group());
+		}
+		
+		String[] arrayLista = new String[allMatches.size()];
+		allMatches.toArray(arrayLista);
+		
+		return arrayLista;
+	}
 	
 }
