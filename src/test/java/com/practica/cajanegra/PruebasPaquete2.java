@@ -280,24 +280,44 @@ public class PruebasPaquete2 {
 	 */
 	@ParameterizedTest()
 	@MethodSource("getIsSublistParameters")
-	public void isSublistTest(int t, int p)
+	public void isSublistTest(int t, int p, boolean pruebaVacia)
 	{
-		SingleLinkedListImpl<String> prueba = new SingleLinkedListImpl<String>(getLista(t, p - 1));
-		int probador = nElementos.isSubList(prueba);
-		if(t == 0)
+		SingleLinkedListImpl<String> listaPrueba;
+		if(pruebaVacia)
 		{
-			assertEquals(0, probador);
-		}
-		else if(nElementos.size() - (p - 1) - t < 0)
-		{
-			assertEquals(-1, probador);
+			listaPrueba = vacia;
 		}
 		else
 		{
-			assertEquals(p, probador);
+			listaPrueba = nElementos;
+		}
+		SingleLinkedListImpl<String> sublista = new SingleLinkedListImpl<String>(getLista(t, p - 1));
+		int parametroSalida = listaPrueba.isSubList(sublista);
+		if(t == 0)
+		{
+			assertEquals(0, parametroSalida);
+		}
+		else if(listaPrueba.size() - (p - 1) - t < 0)
+		{
+			assertEquals(-1, parametroSalida);
+		}
+		else
+		{
+			assertEquals(p, parametroSalida);
 		}
 	}
 	
+	/**
+	 * Devuelve la lista que se va a pasar al método isSublist en
+	 * las pruebas. Será una lista cuyos elementos coincidan con
+	 * los de la lista desde la que se llame al método a partir
+	 * de la posición p; si el tamaño de la sublista supera al
+	 * de la lista, se rellena con "X".
+	 * @param t Tamaño de la sublista.
+	 * @param p Posición a partir de la cual se copian los elementos
+	 * de la lista padre.
+	 * @return La sublista con la que se probará el método.
+	 */
 	public String[] getLista(int t, int p)
 	{
 		System.out.println();
@@ -313,20 +333,23 @@ public class PruebasPaquete2 {
 		{
 			solucion = new String[t];
 			int counter = 0;
-			int i = p;
-			while(i < nElementosArray.length && t != 0)
+			if(p < nElementosArray.length)
 			{
-				solucion[counter] = nElementosArray[i];
-				System.out.print(solucion[counter]);
-				counter++;
-				t--;
-				i++;
+				int i = p;
+				while(i < nElementosArray.length && t != 0)
+				{
+					solucion[counter] = nElementosArray[i];
+					System.out.print(solucion[counter]);
+					counter++;
+					t--;
+					i++;
+				}
 			}
 			if(t != 0)
 			{
 				for(; t > 0; t--)
 				{
-					solucion[counter] = "A";
+					solucion[counter] = "X";
 					System.out.print(solucion[counter]);
 					counter++;
 				}
@@ -336,26 +359,36 @@ public class PruebasPaquete2 {
 		}
 	}
 	
+	/**
+	 * Devuelve los parámetros de las pruebas del método isSublist.
+	 * @return Matriz de strings donde cada fila es un caso de prueba.
+	 */
 	public static String[][] getIsSublistParameters()
 	{
 		String[] tamanos = { "0", "1", "2", "4", "5", "6" };
-		String[] posiciones = { "1", "2", "4", "6", "7" };
-		String[][] parametros = new String[tamanos.length * posiciones.length][2];
-		getCartesian(tamanos, posiciones, parametros, 0);
-		return parametros;
+		String[] posiciones = { "1", "2", "4", "6", "7", "8" };
+		String[][] casosDePrueba = new String[tamanos.length * posiciones.length * 2][3];
+		getCartesian(tamanos, posiciones, casosDePrueba, 0);
+		getCartesian(tamanos, posiciones, casosDePrueba, 36);
+		int index;
+		for(index = 0; index < casosDePrueba.length / 2; index++)
+		{
+			casosDePrueba[index][2] = "true";
+		}
+		for(; index < casosDePrueba.length; index++)
+		{
+			casosDePrueba[index][2] = "false";
+		}
+		return casosDePrueba;
 	}
-	
-	
-	
-	
 	
 	/**
 	 * Copia el producto cartesiano de dos arrays de strings en una matriz
 	 * de strings a partir de la fila "start" de la matriz.
-	 * @param params1 El primer string del producto cartesiano
-	 * @param params2 El segundo string del producto cartesiano
-	 * @param cartesianMatrix La matriz donde se copiará el producto cartesiano
-	 * @param start A partir de qué fila de la matriz copiar el producto cartesiano
+	 * @param params1 El primer string del producto cartesiano.
+	 * @param params2 El segundo string del producto cartesiano.
+	 * @param cartesianMatrix La matriz donde se copiará el producto cartesiano.
+	 * @param start A partir de qué fila de la matriz copiar el producto cartesiano.
 	 */
 	public static void getCartesian(String[] params1, String[] params2, String[][] cartesianMatrix, int start)
 	{
@@ -372,10 +405,11 @@ public class PruebasPaquete2 {
 	}
 	
 	/**
-	 * Devuelve los elementos de la lista como array de strings.
-	 * @param lista
+	 * Devuelve los elementos de la lista como array de strings para que
+	 * sea más fácil operar con ellos.
+	 * @param lista.
 	 * @return array de strings donde cada elemento del array
-	 * es un elemento de la lista
+	 * es un elemento de la lista.
 	 */
 	public String[] getLetras(SingleLinkedListImpl<String> lista)
 	{
@@ -386,7 +420,6 @@ public class PruebasPaquete2 {
 		while (m.find()) {
 		   allMatches.add(m.group());
 		}
-		
 		String[] arrayLista = new String[allMatches.size()];
 		allMatches.toArray(arrayLista);
 		
