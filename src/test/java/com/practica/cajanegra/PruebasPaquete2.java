@@ -291,7 +291,7 @@ public class PruebasPaquete2 {
 		{
 			listaPrueba = nElementos;
 		}
-		SingleLinkedListImpl<String> sublista = new SingleLinkedListImpl<String>(getLista(t, p - 1));
+		SingleLinkedListImpl<String> sublista = getLista(t, p - 1);
 		int parametroSalida = listaPrueba.isSubList(sublista);
 		if(t == 0)
 		{
@@ -318,7 +318,7 @@ public class PruebasPaquete2 {
 	 * de la lista padre.
 	 * @return La sublista con la que se probará el método.
 	 */
-	public String[] getLista(int t, int p)
+	public SingleLinkedListImpl<String> getLista(int t, int p)
 	{
 		System.out.println();
 		System.out.println("Tamaño: " + t + "; Posicion: " + p);
@@ -326,8 +326,7 @@ public class PruebasPaquete2 {
 		String[] solucion;
 		if(t == 0)
 		{
-			solucion = new String[0];
-			return solucion;
+			return vacia;
 		}
 		else
 		{
@@ -355,7 +354,8 @@ public class PruebasPaquete2 {
 				}
 			}
 			System.out.println();
-			return solucion;
+			SingleLinkedListImpl<String> solucionLista = new SingleLinkedListImpl<String>(solucion);
+			return solucionLista;
 		}
 	}
 	
