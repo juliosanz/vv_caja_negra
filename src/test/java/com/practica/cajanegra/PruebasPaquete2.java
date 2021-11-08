@@ -297,7 +297,7 @@ public class PruebasPaquete2 {
 		}
 		SingleLinkedListImpl<String> sublista = getLista(t, p - 1);
 		int parametroSalida = listaPrueba.isSubList(sublista);
-		if(t == 0)
+		if(t == 0 || t == -1)
 		{
 			assertEquals(0, parametroSalida);
 		}
@@ -331,6 +331,10 @@ public class PruebasPaquete2 {
 		if(t == 0)
 		{
 			return vacia;
+		}
+		else if(t == -1)
+		{
+			return null;
 		}
 		else
 		{
@@ -369,11 +373,11 @@ public class PruebasPaquete2 {
 	 */
 	public static String[][] getIsSublistParameters()
 	{
-		String[] tamanos = { "0", "1", "2", "4", "5", "6" };
+		String[] tamanos = { "-1", "0", "1", "2", "4", "5", "6" };
 		String[] posiciones = { "1", "2", "4", "6", "7", "8" };
 		String[][] casosDePrueba = new String[tamanos.length * posiciones.length * 2][3];
 		getCartesian(tamanos, posiciones, casosDePrueba, 0);
-		getCartesian(tamanos, posiciones, casosDePrueba, 36);
+		getCartesian(tamanos, posiciones, casosDePrueba, 42);
 		int index;
 		for(index = 0; index < casosDePrueba.length / 2; index++)
 		{
