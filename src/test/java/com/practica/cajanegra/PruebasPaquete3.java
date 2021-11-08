@@ -107,6 +107,14 @@ public class PruebasPaquete3 {
         assertThrows(NoSuchElementException.class, () -> {
             listConRepetidos.indexOf("["); // Elem. no valido posterior
         });
+
+        // Preguntar por estas si estan o no en el domino:
+        assertThrows(NoSuchElementException.class, () -> {
+            listConRepetidos.indexOf(""); // Elem. no valido posterior
+        });
+        assertThrows(NullPointerException.class, () -> {
+            listConRepetidos.indexOf(null); // Elem. no valido posterior
+        });
     }
 
 }
