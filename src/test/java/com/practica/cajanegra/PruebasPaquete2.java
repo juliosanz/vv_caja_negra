@@ -70,18 +70,15 @@ public class PruebasPaquete2 {
 	
 	
 	/*
-	 * 	El siguiente conjunto de tests comprueba
-	 * 	la funcionalidad del método RemoveLast
+	 * 	El siguiente test comprueba la
+	 * 	funcionalidad del método RemoveLast
 	 * 	mediante Robustness for worst case
 	 */
-	@Test
-	public void removeLastVaciaTest() {
-		assertThrows(EmptyCollectionException.class, () -> {vacia.removeLast();});
-	}
 	
-	@DisplayName("Remove last de una lista no vacía")
+	@DisplayName("Pruebas de remove last")
 	@ParameterizedTest()
 	@CsvSource({
+	"vacia",
 	"unElemento",
 	"dosElementos",
 	"nElementos"
@@ -89,13 +86,20 @@ public class PruebasPaquete2 {
 	public void removeLastNotEmptyTest(String key) throws EmptyCollectionException {
 		SingleLinkedListImpl<String> lista = hmap.get(key);
 		String strSolucion = "[]";
-		if(lista.size()!=1) {
-			strSolucion = lista.toString().substring(0,lista.toString().length()-4) + "]";
+		if(lista.size() == 0) {
+			assertThrows(EmptyCollectionException.class, () -> {vacia.removeLast();});
+			
+		} else {
+			
+			if(lista.size()!=1) {
+				strSolucion = lista.toString().substring(0,lista.toString().length()-4) + "]";
+			}
+			
+			String elemSolucion = lista.toString().substring(lista.toString().length()-2, lista.toString().length()-1);
+			String elemPrueba = lista.removeLast();
+			assertEquals(elemSolucion, elemPrueba);
+			assertEquals(strSolucion, lista.toString());
 		}
-		String elemSolucion = lista.toString().substring(lista.toString().length()-2, lista.toString().length()-1);
-		String elemPrueba = lista.removeLast();
-		assertEquals(elemSolucion, elemPrueba);
-		assertEquals(strSolucion, lista.toString());
 	}
 	
 	/*
