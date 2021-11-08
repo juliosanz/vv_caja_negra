@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import com.cajanegra.SingleLinkedListImpl;
 
 public class PruebasPaquete3 {
-  private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos, listNull;
+  private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos;
 	
 	@BeforeEach
 	void init() {
@@ -23,7 +23,6 @@ public class PruebasPaquete3 {
         lista7Elem = new SingleLinkedListImpl<>("A", "B", "C", "D", "E", "F", "G");
 		vacia = new SingleLinkedListImpl<String>();
         listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "M", "A", "B", "Y", "Z", "Y", "O");
-        listNull = null;
 	}
 	
 	@ParameterizedTest()
@@ -39,6 +38,14 @@ public class PruebasPaquete3 {
         assertEquals(lista3Elem.toString(), solucion);
 	}
 	
+    @Test
+    public void addLastInvalidoConNull() {
+      int sizeOri = lista3Elem.size();
+      assertThrows(NullPointerException.class, () -> {
+        lista3Elem.addLast(null);
+      });
+      assertEquals(lista3Elem.size(), sizeOri);
+    }
 	
 	@ParameterizedTest()
 	@CsvSource({
@@ -67,9 +74,6 @@ public class PruebasPaquete3 {
             lista7Elem.getAtPos(lista7Elem.size() + 1);
         });
         // NO SE PRUEBA getAtPos(null) por no ser permitido por le compilador
-        assertThrows(NullPointerException.class, () -> {
-          listNull.getAtPos(1);
-        });
     }
 
     @Test
@@ -87,9 +91,6 @@ public class PruebasPaquete3 {
     public void testToString() {
         assertTrue(lista7Elem.toString().equals("[A, B, C, D, E, F, G]"));
         assertTrue(vacia.toString().equals("[]"));
-        assertThrows(NullPointerException.class, () -> {
-          listNull.toString();
-        });
     }
 
     // Test indexOf
