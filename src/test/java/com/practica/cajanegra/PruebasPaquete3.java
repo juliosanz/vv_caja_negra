@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import com.cajanegra.SingleLinkedListImpl;
 
 public class PruebasPaquete3 {
-    private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos;
+  private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos, listNull;
 	
 	@BeforeEach
 	void init() {
@@ -23,6 +23,7 @@ public class PruebasPaquete3 {
         lista7Elem = new SingleLinkedListImpl<>("A", "B", "C", "D", "E", "F", "G");
 		vacia = new SingleLinkedListImpl<String>();
         listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "M", "A", "B", "Y", "Z", "Y", "O");
+        listNull = null;
 	}
 	
 	@ParameterizedTest()
@@ -65,6 +66,10 @@ public class PruebasPaquete3 {
         assertThrows(IllegalArgumentException.class, () -> {
             lista7Elem.getAtPos(lista7Elem.size() + 1);
         });
+        // NO SE PRUEBA getAtPos(null) por no ser permitido por le compilador
+        assertThrows(NullPointerException.class, () -> {
+          listNull.getAtPos(1);
+        });
     }
 
     @Test
@@ -82,6 +87,9 @@ public class PruebasPaquete3 {
     public void testToString() {
         assertTrue(lista7Elem.toString().equals("[A, B, C, D, E, F, G]"));
         assertTrue(vacia.toString().equals("[]"));
+        assertThrows(NullPointerException.class, () -> {
+          listNull.toString();
+        });
     }
 
     // Test indexOf
@@ -94,8 +102,8 @@ public class PruebasPaquete3 {
         assertTrue(listConRepetidos.indexOf("Z") == listConRepetidos.size() - 2); // Z en penult. pos.
         assertTrue(listConRepetidos.indexOf("O") == listConRepetidos.size()); // O en Ult. pos
         assertNotEquals(listConRepetidos.indexOf("Y"), listConRepetidos.size() - 1); // Y repetida penult. pos. ignorada
-        assertThrows(NoSuchElementException.class, () -> {
-            listConRepetidos.indexOf("K"); // Elem. valido en ninguna pos.
+        assertThrows(NullPointerException.class, () -> {
+          listConRepetidos.indexOf(null); // Elem. no valido posterior
         });
     }
 
@@ -106,11 +114,6 @@ public class PruebasPaquete3 {
         });
         assertThrows(NoSuchElementException.class, () -> {
             listConRepetidos.indexOf("["); // Elem. no valido posterior
-        });
-
-        // Preguntar por estas si estan o no en el domino:
-        assertThrows(NoSuchElementException.class, () -> {
-            listConRepetidos.indexOf(""); // Elem. no valido posterior
         });
         assertThrows(NullPointerException.class, () -> {
             listConRepetidos.indexOf(null); // Elem. no valido posterior
