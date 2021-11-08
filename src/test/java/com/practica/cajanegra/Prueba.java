@@ -90,6 +90,8 @@ public class Prueba {
 	   assertEquals(expected, mylist.toString());
    }
    
+  
+   
    
    /*
     * addAtPos
@@ -119,7 +121,7 @@ public class Prueba {
     * que están fuera del dominio
     * 
     * */
-   @ParameterizedTest(name="{index} => intenta añadir el elemento {0} en la posicion {1}")
+   @ParameterizedTest(name="{index} => intenta aniadir el elemento {0} en la posicion {1}")
    @CsvSource(delimiter=':', value= {
 		   "@: 1",
 		   "@: 2",
@@ -142,14 +144,30 @@ public class Prueba {
 	   mylist.addAtPos(element, pos);
 	   assertEquals(mylistExpected, mylist.toString());
    }
+   /*
+    *addAtPos
+    *
+    *probamos a meter null en la posicion 1. 
+    *no deberia modificar la lista pero si queda modificada
+    * 
+    * */
    
+   @Test
+   void addAtPos_null() {
+	   String mylistExpected= mylist.toString();
+
+	   mylist.addAtPos(null, 1);
+	   assertEquals(mylistExpected, mylist.toString());
+
+   }
    
    /*
     * isEmpty
     * 
     * Creamos listas con un elemento o mas y nos aseguramos de que no estan vacias
+    * 
     * */
-	@ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no está vacía")
+	@ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no esta vacia")
 	@CsvSource(value = { 
 			
 			"A,:false",
@@ -177,6 +195,7 @@ public class Prueba {
 	 *reverse
 	 *
 	 * Comprueba que la lista [{0}] se convierte en {1}
+	 * 
 	 * */
 	@ParameterizedTest(name="{index} => Comprueba que la lista [{0}] se convierte en {1}")
 	@CsvSource(value = { 
@@ -192,6 +211,7 @@ public class Prueba {
 	/*
 	 * convierte una lista separada por comas en un objeto SingleLinkedListImpl y lo
 	 * asigna al atributo mylist de la clase 
+	 * 
 	 * */
 	void crearLista(String list) {
 		String[ ] elements = list.split(",");
@@ -244,7 +264,7 @@ public class Prueba {
 	 * 
 	 * intenta eliminar un elemento de una lista vacia
 	 * */
-	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0} de una lista vacía")
+	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0} de una lista vacia")
 	@CsvSource( value= {
 		"@", "A","B", "M", "Y", "Z", "["
 
@@ -261,8 +281,9 @@ public class Prueba {
 	 * intenta eliminar un elemento que no esta en la lista
 	 * 
 	 * no funciona. devuelve null pero no salta una excepcion
+	 * 
 	 * */
-	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0}, que no está incluido en la lista")
+	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0}, que no esta incluido en la lista")
 	@CsvSource(value = {
 		"@", "A","B", "M", "Y", "Z", "["
 
