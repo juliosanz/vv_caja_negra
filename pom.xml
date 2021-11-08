@@ -42,7 +42,13 @@
 			<artifactId>junit-platform-suite</artifactId>
 			<version>1.8.1</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
+		<dependency>
+    		<groupId>org.junit.jupiter</groupId>
+    		<artifactId>junit-jupiter-params</artifactId>
+    		<version>5.7.0</version>
+    		<scope>test</scope>
+		</dependency>	
 		<dependency>
 		  <groupId>com.singleList</groupId>
 		  <artifactId>SingleList</artifactId>
@@ -71,6 +77,11 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
+          <configuration>
+            <includes>
+                <include>**/com/practica/cajanegra/*.java</include>
+            </includes>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
