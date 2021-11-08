@@ -1,12 +1,6 @@
 package com.practica.cajanegra;
 
-<<<<<<< HEAD
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
-import com.cajanegra.SingleLinkedListImpl;
-=======
 import com.cajanegra.EmptyCollectionException;
 import com.cajanegra.SingleLinkedList;
 import com.cajanegra.SingleLinkedListImpl;
@@ -18,7 +12,6 @@ import org.junit.validator.PublicClassValidator;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
->>>>>>> paloma-esteban
 
 import java.util.NoSuchElementException;
 
@@ -26,13 +19,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 public class Prueba {
-<<<<<<< HEAD
 
-   @Test
-   public void miTestDeEjemplo(){
-       SingleLinkedListImpl<String> mylist = new SingleLinkedListImpl<String>("A", "B");
-       assertEquals(2,mylist.size());
-=======
 	 SingleLinkedListImpl<String> mylist;
 	 /*
 	  * Duda:
@@ -119,7 +106,6 @@ public class Prueba {
        assertThrows(IllegalArgumentException.class, () -> {
          mylist.addAtPos(element, 0);
        });
->>>>>>> paloma-esteban
    }
    
    /*
