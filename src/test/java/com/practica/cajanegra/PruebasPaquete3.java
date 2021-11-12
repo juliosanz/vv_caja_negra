@@ -100,9 +100,6 @@ public class PruebasPaquete3 {
         assertTrue(listConRepetidos.indexOf("Z") == listConRepetidos.size() - 2); // Z en penult. pos.
         assertTrue(listConRepetidos.indexOf("O") == listConRepetidos.size()); // O en Ult. pos
         assertNotEquals(listConRepetidos.indexOf("Y"), listConRepetidos.size() - 1); // Y repetida penult. pos. ignorada
-        assertThrows(NullPointerException.class, () -> {
-          listConRepetidos.indexOf(null); // Elem. no valido posterior
-        });
     }
 
     @Test
@@ -113,9 +110,12 @@ public class PruebasPaquete3 {
         assertThrows(NoSuchElementException.class, () -> {
             listConRepetidos.indexOf("["); // Elem. no valido posterior
         });
+      }
+
+      @Test
+      public void testIndexOfNull() {
         assertThrows(NullPointerException.class, () -> {
-            listConRepetidos.indexOf(null); // Elem. no valido posterior
+          listConRepetidos.indexOf(null); // Elem. nulo
         });
     }
-
 }
