@@ -95,7 +95,7 @@ public class Prueba {
     * Intenta insertar el elmento {0} en la posicion 0.
     * El resultado esperado es que de una excepcion en cada ejecucion.
     * */
-   @ParameterizedTest(name= "{index} => intenta añadir el elemento {0} en la posicion 0")
+   @ParameterizedTest(name= "{index} => intenta aniadir el elemento {0} en la posicion 0")
    @CsvSource(value={
        "A", "B", "M", "Y", "Z", "[", "@"
    })
@@ -114,7 +114,7 @@ public class Prueba {
     * 
     * no funciona.
     * La lista deberia quedar intacta, pero se produce la insercion de los caracteres
-    * que están fuera del dominio
+    * que estan fuera del dominio
     * 
     * */
    @ParameterizedTest(name="{index} => intenta aniadir el elemento {0} en la posicion {1}")
@@ -238,7 +238,7 @@ public class Prueba {
      * 1 si el elemento a borrar esta el primero, entoces deja la lista vacia
      * 2 si el elemento aparece 2 veces, lo borra ambas
      * */
-    @ParameterizedTest(name="{index} => Elimina de la lista la última aparicion de {0}")
+    @ParameterizedTest(name="{index} => Elimina de la lista la ultima aparicion de {0}")
     @CsvSource(delimiter=':', value= {
         "A: [A, B, M, Y, Z, B, Y, Z]",
         "B: [A, B, M, A, Y, Z, Y, Z]",
@@ -266,9 +266,9 @@ public class Prueba {
 
     })
     void testRemoveLast_emptylist(String element) {
-        SingleLinkedListImpl<String> lista_vacía=new SingleLinkedListImpl<String>();
+        SingleLinkedListImpl<String> lista_vacia=new SingleLinkedListImpl<String>();
         assertThrows(EmptyCollectionException.class, () -> {
-            lista_vacía.removeLast(element);
+            lista_vacia.removeLast(element);
         });
     }
     /*
