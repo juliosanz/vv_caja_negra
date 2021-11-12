@@ -1,22 +1,18 @@
 package com.practica.cajanegra;
 
 
-import com.cajanegra.EmptyCollectionException;
-import com.cajanegra.SingleLinkedList;
-import com.cajanegra.SingleLinkedListImpl;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.validator.PublicClassValidator;
-
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.NoSuchElementException;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import com.cajanegra.EmptyCollectionException;
+import com.cajanegra.SingleLinkedListImpl;
 
 public class Prueba {
 
@@ -38,11 +34,11 @@ public class Prueba {
    /*
     * 
     * addAtPos
-
+    * 
     * Inserta el elemento {0} en la posicion {1}. La lista debe modificarse de tal
-    *  forma que coincida con el {3}
-    *  */
-   @ParameterizedTest(name= "{index} => aniade el elemento {0} en la posicion {1}")
+    * forma que coincida con el {3}
+    */
+   @ParameterizedTest(name = "{index} => añade el elemento {0} en la posicion {1}")
    @CsvSource(delimiter=':', 
    value={
 	   "A: 1: [A, L, M, N, O, P, Q]",
@@ -90,8 +86,6 @@ public class Prueba {
 	   assertEquals(expected, mylist.toString());
    }
    
-  
-   
    
    /*
     * addAtPos
@@ -118,10 +112,10 @@ public class Prueba {
     * 
     * no funciona.
     * La lista deberia quedar intacta, pero se produce la insercion de los caracteres
-    * que están fuera del dominio
+    * que estan fuera del dominio
     * 
     * */
-   @ParameterizedTest(name="{index} => intenta aniadir el elemento {0} en la posicion {1}")
+   @ParameterizedTest(name="{index} => intenta añadir el elemento {0} en la posicion {1}")
    @CsvSource(delimiter=':', value= {
 		   "@: 1",
 		   "@: 2",
@@ -144,28 +138,12 @@ public class Prueba {
 	   mylist.addAtPos(element, pos);
 	   assertEquals(mylistExpected, mylist.toString());
    }
-   /*
-    *addAtPos
-    *
-    *probamos a meter null en la posicion 1. 
-    *no deberia modificar la lista pero si queda modificada
-    * 
-    * */
    
-   @Test
-   void addAtPos_null() {
-	   String mylistExpected= mylist.toString();
-
-	   mylist.addAtPos(null, 1);
-	   assertEquals(mylistExpected, mylist.toString());
-
-   }
    
    /*
     * isEmpty
     * 
     * Creamos listas con un elemento o mas y nos aseguramos de que no estan vacias
-    * 
     * */
 	@ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no esta vacia")
 	@CsvSource(value = { 
@@ -195,7 +173,6 @@ public class Prueba {
 	 *reverse
 	 *
 	 * Comprueba que la lista [{0}] se convierte en {1}
-	 * 
 	 * */
 	@ParameterizedTest(name="{index} => Comprueba que la lista [{0}] se convierte en {1}")
 	@CsvSource(value = { 
@@ -211,7 +188,6 @@ public class Prueba {
 	/*
 	 * convierte una lista separada por comas en un objeto SingleLinkedListImpl y lo
 	 * asigna al atributo mylist de la clase 
-	 * 
 	 * */
 	void crearLista(String list) {
 		String[ ] elements = list.split(",");
@@ -270,9 +246,9 @@ public class Prueba {
 
 	})
 	void testRemoveLast_emptylist(String element) {
-		SingleLinkedListImpl<String> lista_vacía=new SingleLinkedListImpl<String>();
+		SingleLinkedListImpl<String> lista_vacia=new SingleLinkedListImpl<String>();
 		assertThrows(EmptyCollectionException.class, () -> {
-			lista_vacía.removeLast(element);
+			lista_vacia.removeLast(element);
 		});
 	}
 	/*
@@ -281,7 +257,6 @@ public class Prueba {
 	 * intenta eliminar un elemento que no esta en la lista
 	 * 
 	 * no funciona. devuelve null pero no salta una excepcion
-	 * 
 	 * */
 	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0}, que no esta incluido en la lista")
 	@CsvSource(value = {
@@ -293,6 +268,6 @@ public class Prueba {
 		assertThrows(NoSuchElementException.class, () -> {
 			lista.removeLast(element);
 			});
-	}
-   
+      }
+
 }

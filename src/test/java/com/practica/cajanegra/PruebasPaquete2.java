@@ -1,29 +1,24 @@
 package com.practica.cajanegra;
 
-import com.cajanegra.EmptyCollectionException;
-import com.cajanegra.SingleLinkedListImpl;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import com.cajanegra.EmptyCollectionException;
+import com.cajanegra.SingleLinkedListImpl;
 
 public class PruebasPaquete2 {
 	private static SingleLinkedListImpl<String> vacia;
@@ -34,7 +29,7 @@ public class PruebasPaquete2 {
 	
 	/*
 	 * En el beforeAll asignamos valores al hashMap que usaremos
-	 * en algunos de los métodos, por lo que también instanciamos
+	 * en algunos de los metodos, por lo que tambien instanciamos
 	 * cada una de las listas.
 	 */
 	
@@ -56,7 +51,7 @@ public class PruebasPaquete2 {
 	
 	/*
 	 * En el beforeEach reinstanciamos las variables que referencian cada 
-	 * lista utilizada para asegurarnos de la atomicidad en cada método.
+	 * lista utilizada para asegurarnos de la atomicidad en cada metodo.
 	 * 
 	 */
 	@Test
@@ -71,7 +66,7 @@ public class PruebasPaquete2 {
 	
 	/*
 	 * 	El siguiente test comprueba la
-	 * 	funcionalidad del método RemoveLast
+	 * 	funcionalidad del metodo RemoveLast
 	 * 	mediante Robustness for worst case
 	 */
 	
@@ -104,7 +99,7 @@ public class PruebasPaquete2 {
 	
 	/*
 	 * 	El siguiente test comprueba la 
-	 *  funcionalidad del método Size
+	 *  funcionalidad del metodo Size
 	 */
 	
 	@DisplayName("Testea size Parametrizado")
@@ -124,7 +119,7 @@ public class PruebasPaquete2 {
 
 	/*
 	 * 	El siguiente conjunto de tests comprueba
-	 * 	la funcionalidad del método addNTimes
+	 * 	la funcionalidad del metodo addNTimes
 	 * 	mediante Robustness for worst case
 	 */
 	
@@ -141,8 +136,8 @@ public class PruebasPaquete2 {
 		{
 			lista = nElementos;
 		}
-		// Si n es negativo, comprobamos que lance la excepción que debe
-		// lanzar según la documentación.
+		// Si n es negativo, comprobamos que lance la excepcion que debe
+        // lanzar segun la documentacion.
 		if(n < 0)
 		{
 			assertThrows(IllegalArgumentException.class, () -> {
@@ -153,25 +148,25 @@ public class PruebasPaquete2 {
 		{
 			String[] elementosIniciales = getLetras(lista);
 			// Llegados a este bloque, n es mayor o igual que cero por el
-			// if anterior, luego la excepción no debería lanzarse.
+			// if anterior, luego la excepcion no debería lanzarse.
 			try
 			{
 				lista.addNTimes(letra, n);
 			}
 			catch(IllegalArgumentException e)
 			{
-				fail("Excepción inesperada");
+				fail("Excepcion inesperada");
 			}
 			String[] elementosFinales = getLetras(lista);
 			
 			// Comprobamos primero si los elementos de la lista inicial
-			// han permanecido igual y en su misma posición.
+			// han permanecido igual y en su misma posicion.
 			int index;
 			for(index = 0; index < elementosIniciales.length; index++)
 			{
 				assertEquals(elementosIniciales[index], elementosFinales[index]);
 			}
-			// Si la letra insertada no es válida, nos aseguramos de que no se
+			// Si la letra insertada no es valida, nos aseguramos de que no se
 			// haya insertado en la lista.
 			if(letra == "@" || letra == "[")
 			{
@@ -193,7 +188,7 @@ public class PruebasPaquete2 {
 	}
 	
 	/**
-	 * Devuelve los parámetros para los tests del método AddNTimes
+	 * Devuelve los parametros para los tests del metodo AddNTimes
 	 * @return Matriz donde cada fila es un caso de prueba.
 	 */
 	public static String[][] getAddNTimesParameters()
@@ -219,11 +214,11 @@ public class PruebasPaquete2 {
 	
 	/*
 	 * 	El siguiente conjunto de tests comprueba
-	 * 	la funcionalidad del método addFirst
+	 * 	la funcionalidad del metodo addFirst
 	 * 	mediante Robustness for worst case
 	 */
 	
-	@DisplayName("Add First para los casos válidos")
+	@DisplayName("Add First para los casos validos")
 	@ParameterizedTest()
 	@CsvSource({
 	"Z,vacia",  
@@ -258,7 +253,7 @@ public class PruebasPaquete2 {
 	
 	
 	
-	@DisplayName("Add First para los casos inválidos")
+	@DisplayName("Add First para los casos invalidos")
 	@ParameterizedTest()
 	@CsvSource({
 	"@,vacia",        
@@ -279,7 +274,7 @@ public class PruebasPaquete2 {
 	}
 	/**
 	 * 
-	 * @param t referencia el tamaño de la lista que vamos a buscar
+	 * @param t referencia el tamanio de la lista que vamos a buscar
 	 * @param p referencia la posicion a partir de la que se encuentra la subLista
 	 */
 	@ParameterizedTest()
@@ -312,20 +307,20 @@ public class PruebasPaquete2 {
 	}
 	
 	/**
-	 * Devuelve la lista que se va a pasar al método isSublist en
-	 * las pruebas. Será una lista cuyos elementos coincidan con
-	 * los de la lista desde la que se llame al método a partir
-	 * de la posición p; si el tamaño de la sublista supera al
+	 * Devuelve la lista que se va a pasar al metodo isSublist en
+	 * las pruebas. Sera una lista cuyos elementos coincidan con
+	 * los de la lista desde la que se llame al metodo a partir
+	 * de la posicion p; si el tamanio de la sublista supera al
 	 * de la lista, se rellena con "X".
-	 * @param t Tamaño de la sublista.
-	 * @param p Posición a partir de la cual se copian los elementos
+	 * @param t Tamanio de la sublista.
+	 * @param p Posicion a partir de la cual se copian los elementos
 	 * de la lista padre.
-	 * @return La sublista con la que se probará el método.
+	 * @return La sublista con la que se probara el metodo.
 	 */
 	public SingleLinkedListImpl<String> getLista(int t, int p)
 	{
 		System.out.println();
-		System.out.println("Tamaño: " + t + "; Posicion: " + p);
+		System.out.println("Tamanio: " + t + "; Posicion: " + p);
 		String[] nElementosArray = getLetras(nElementos);
 		String[] solucion;
 		if(t == 0)
@@ -368,7 +363,7 @@ public class PruebasPaquete2 {
 	}
 	
 	/**
-	 * Devuelve los parámetros de las pruebas del método isSublist.
+	 * Devuelve los parametros de las pruebas del metodo isSublist.
 	 * @return Matriz de strings donde cada fila es un caso de prueba.
 	 */
 	public static String[][] getIsSublistParameters()
@@ -395,8 +390,8 @@ public class PruebasPaquete2 {
 	 * de strings a partir de la fila "start" de la matriz.
 	 * @param params1 El primer string del producto cartesiano.
 	 * @param params2 El segundo string del producto cartesiano.
-	 * @param cartesianMatrix La matriz donde se copiará el producto cartesiano.
-	 * @param start A partir de qué fila de la matriz copiar el producto cartesiano.
+	 * @param cartesianMatrix La matriz donde se copiara el producto cartesiano.
+	 * @param start A partir de que fila de la matriz copiar el producto cartesiano.
 	 */
 	public static void getCartesian(String[] params1, String[] params2, String[][] cartesianMatrix, int start)
 	{
@@ -414,7 +409,7 @@ public class PruebasPaquete2 {
 	
 	/**
 	 * Devuelve los elementos de la lista como array de strings para que
-	 * sea más fácil operar con ellos.
+	 * sea mas facil operar con ellos.
 	 * @param lista.
 	 * @return array de strings donde cada elemento del array
 	 * es un elemento de la lista.
