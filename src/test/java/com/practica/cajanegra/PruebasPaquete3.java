@@ -18,23 +18,23 @@ public class PruebasPaquete3 {
   private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos;
 	
 	@BeforeEach
-	void init() {
+    public void init() {
         lista3Elem = new SingleLinkedListImpl<String>("C", "D", "E");
         lista7Elem = new SingleLinkedListImpl<>("A", "B", "C", "D", "E", "F", "G");
 		vacia = new SingleLinkedListImpl<String>();
         listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "M", "A", "B", "Y", "Z", "Y", "O");
 	}
-	
+
 	@ParameterizedTest()
 	@CsvSource({
 	"@",        
 	"["
 	})
-	void addLastInvalido(String s) {
+    public void addLastInvalido(String s) {
         int sizeOri = lista3Elem.size();
 		String solucion = lista3Elem.toString();
         lista3Elem.addLast(s);
-        assertEquals(sizeOri, lista3Elem.size());
+        assertEquals(sizeOri, lista3Elem.size(), "An invalid element has been wrongfully added.");
         assertEquals(lista3Elem.toString(), solucion);
 	}
 	
@@ -44,7 +44,7 @@ public class PruebasPaquete3 {
       assertThrows(NullPointerException.class, () -> {
         lista3Elem.addLast(null);
       });
-      assertEquals(lista3Elem.size(), sizeOri);
+      assertEquals(lista3Elem.size(), sizeOri, "A null element has been wrongfully added");
     }
 	
 	@ParameterizedTest()
@@ -55,7 +55,7 @@ public class PruebasPaquete3 {
 	"Y",
 	"Z"
 	})
-	void addLastValido(String s) {
+    public void addLastValido(String s) {
         int sizeOri = lista3Elem.size();
         lista3Elem.addLast(s);
 		String solucion = "[C, D, E, " + s + "]";
@@ -64,7 +64,6 @@ public class PruebasPaquete3 {
 	}
 	
     // Tests getAtPost
-
     @Test
     public void testGetAtPosPosInvalidas() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -86,7 +85,6 @@ public class PruebasPaquete3 {
     }
 
     // Test toString
-
     @Test
     public void testToString() {
         assertTrue(lista7Elem.toString().equals("[A, B, C, D, E, F, G]"));
@@ -94,7 +92,6 @@ public class PruebasPaquete3 {
     }
 
     // Test indexOf
-
     @Test
     public void testIndexOfValidos() {
         assertTrue(listConRepetidos.indexOf("A") == 1); // A en primera pos.
