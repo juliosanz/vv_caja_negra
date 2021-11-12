@@ -39,10 +39,10 @@ public class Prueba {
     * 
     * addAtPos
 
-    * Inserta el elemento {0} en la posición {1}. La lista debe modificarse de tal
+    * Inserta el elemento {0} en la posicion {1}. La lista debe modificarse de tal
     *  forma que coincida con el {3}
     *  */
-   @ParameterizedTest(name= "{index} => añade el elemento {0} en la posición {1}")
+   @ParameterizedTest(name= "{index} => aniade el elemento {0} en la posicion {1}")
    @CsvSource(delimiter=':', 
    value={
 	   "A: 1: [A, L, M, N, O, P, Q]",
@@ -90,14 +90,16 @@ public class Prueba {
 	   assertEquals(expected, mylist.toString());
    }
    
+  
+   
    
    /*
     * addAtPos
 	*
-    * Intenta insertar el elmento {0} en la posición 0.
-    * El resultado esperado es que de una excepción en cada ejecución.
+    * Intenta insertar el elmento {0} en la posicion 0.
+    * El resultado esperado es que de una excepcion en cada ejecucion.
     * */
-   @ParameterizedTest(name= "{index} => intenta añadir el elemento {0} en la posición 0")
+   @ParameterizedTest(name= "{index} => intenta añadir el elemento {0} en la posicion 0")
    @CsvSource(value={
 	   "A", "B", "M", "Y", "Z", "[", "@"
    })
@@ -111,15 +113,15 @@ public class Prueba {
    /*
     * addAtPos
     * 
-    * Intenta insertar el elemento {0} en la posición {1}.
+    * Intenta insertar el elemento {0} en la posicion {1}.
     * El resultado esperado es que la lista quede sin modificar
     * 
     * no funciona.
-    * La lista debería quedar intacta, pero se produce la inserción de los caracteres
+    * La lista deberia quedar intacta, pero se produce la insercion de los caracteres
     * que están fuera del dominio
     * 
     * */
-   @ParameterizedTest(name="{index} => intenta añadir el elemento {0} en la posición {1}")
+   @ParameterizedTest(name="{index} => intenta aniadir el elemento {0} en la posicion {1}")
    @CsvSource(delimiter=':', value= {
 		   "@: 1",
 		   "@: 2",
@@ -142,14 +144,30 @@ public class Prueba {
 	   mylist.addAtPos(element, pos);
 	   assertEquals(mylistExpected, mylist.toString());
    }
+   /*
+    *addAtPos
+    *
+    *probamos a meter null en la posicion 1. 
+    *no deberia modificar la lista pero si queda modificada
+    * 
+    * */
    
+   @Test
+   void addAtPos_null() {
+	   String mylistExpected= mylist.toString();
+
+	   mylist.addAtPos(null, 1);
+	   assertEquals(mylistExpected, mylist.toString());
+
+   }
    
    /*
     * isEmpty
     * 
-    * Creamos listas con un elemento o más y nos aseguramos de que no están vacías
+    * Creamos listas con un elemento o mas y nos aseguramos de que no estan vacias
+    * 
     * */
-	@ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no está vacía")
+	@ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no esta vacia")
 	@CsvSource(value = { 
 			
 			"A,:false",
@@ -165,7 +183,7 @@ public class Prueba {
 	/*
 	 * isEmpty
 	 * 
-	 * Creamos una lista vacía y comprobamos que está vacía
+	 * Creamos una lista vacia y comprobamos que esta vacia
 	 * */
 	@Test
 	void testIsEmpty() {
@@ -177,6 +195,7 @@ public class Prueba {
 	 *reverse
 	 *
 	 * Comprueba que la lista [{0}] se convierte en {1}
+	 * 
 	 * */
 	@ParameterizedTest(name="{index} => Comprueba que la lista [{0}] se convierte en {1}")
 	@CsvSource(value = { 
@@ -192,6 +211,7 @@ public class Prueba {
 	/*
 	 * convierte una lista separada por comas en un objeto SingleLinkedListImpl y lo
 	 * asigna al atributo mylist de la clase 
+	 * 
 	 * */
 	void crearLista(String list) {
 		String[ ] elements = list.split(",");
@@ -203,7 +223,7 @@ public class Prueba {
 	/*
 	 * reverse
 	 * 
-	 * Creamos una lista vacía y comprobamos que al hacer reverse se queda como está
+	 * Creamos una lista vacia y comprobamos que al hacer reverse se queda como esta
 	 * */
 	@Test
 	void testReverseEmpty() {
@@ -219,10 +239,10 @@ public class Prueba {
 	 * que se quiere borrar
 	 * 
 	 * no funciona. 
-	 * 1 si el elemento a borrar está el primero, entoces deja la lista vacía
+	 * 1 si el elemento a borrar esta el primero, entoces deja la lista vacia
 	 * 2 si el elemento aparece 2 veces, lo borra ambas
 	 * */
-	@ParameterizedTest(name="{index} => Elimina de la lista la última aparición de {0}")
+	@ParameterizedTest(name="{index} => Elimina de la lista la última aparicion de {0}")
 	@CsvSource(delimiter=':', value= {
 		"A: [A, B, M, Y, Z, B, Y, Z]",
 		"B: [A, B, M, A, Y, Z, Y, Z]",
@@ -242,9 +262,9 @@ public class Prueba {
 	/*
 	 * removelast
 	 * 
-	 * intenta eliminar un elemento de una lista vacía
+	 * intenta eliminar un elemento de una lista vacia
 	 * */
-	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0} de una lista vacía")
+	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0} de una lista vacia")
 	@CsvSource( value= {
 		"@", "A","B", "M", "Y", "Z", "["
 
@@ -258,11 +278,12 @@ public class Prueba {
 	/*
 	 * removeLast
 	 * 
-	 * intenta eliminar un elemento que no está en la lista
+	 * intenta eliminar un elemento que no esta en la lista
 	 * 
 	 * no funciona. devuelve null pero no salta una excepcion
+	 * 
 	 * */
-	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0}, que no está incluido en la lista")
+	@ParameterizedTest(name="{index} => Intenta eliminar el elemento {0}, que no esta incluido en la lista")
 	@CsvSource(value = {
 		"@", "A","B", "M", "Y", "Z", "["
 
