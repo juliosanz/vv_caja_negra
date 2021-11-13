@@ -105,7 +105,7 @@ public class PruebasPaquete3 {
 
     // Test indexOf
     @ParameterizedTest()
-    @CsvSource({ "@", "[" })
+    @CsvSource({ "@", "[", "R"})
     public void testIndexOfInvalidos(String s) {
         assertThrows(NoSuchElementException.class, () -> {
           listConRepetidos.indexOf(s); // Elem. no valido precedente/posterior
