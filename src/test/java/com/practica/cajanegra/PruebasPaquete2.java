@@ -36,17 +36,16 @@ public class PruebasPaquete2 {
 	@Test
 	@BeforeAll
 	static void setUp() {
-	vacia = new SingleLinkedListImpl<String>();
-	unElemento = new SingleLinkedListImpl<String>("A");
-	dosElementos = new SingleLinkedListImpl<String>("A", "B");
-	nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
-	
-	hmap = new HashMap<String,SingleLinkedListImpl<String>>();
-	hmap.put("vacia", vacia);
-	hmap.put("unElemento", unElemento);
-	hmap.put("dosElementos", dosElementos);
-	hmap.put("nElementos", nElementos);
-
+		vacia = new SingleLinkedListImpl<String>();
+		unElemento = new SingleLinkedListImpl<String>("A");
+		dosElementos = new SingleLinkedListImpl<String>("A", "B");
+		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
+		
+		hmap = new HashMap<String,SingleLinkedListImpl<String>>();
+		hmap.put("vacia", vacia);
+		hmap.put("unElemento", unElemento);
+		hmap.put("dosElementos", dosElementos);
+		hmap.put("nElementos", nElementos);
 	}
 	
 	/*
