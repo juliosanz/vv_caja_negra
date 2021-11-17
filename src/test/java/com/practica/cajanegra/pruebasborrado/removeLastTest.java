@@ -1,4 +1,4 @@
-package com.practica.cajanegra;
+package com.practica.cajanegra.pruebasborrado;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,8 +16,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import com.cajanegra.EmptyCollectionException;
 import com.cajanegra.SingleLinkedListImpl;
 
-public class PruebasRemove {
-	
+public class removeLastTest {
+
 	private static SingleLinkedListImpl<String> vacia;
 	private static SingleLinkedListImpl<String> unElemento;
 	private static SingleLinkedListImpl<String> dosElementos;
@@ -47,9 +47,8 @@ public class PruebasRemove {
 		dosElementos = new SingleLinkedListImpl<String>("A", "B");
 		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
 	}
-
-
-    /*
+	
+	/*
      * RemoveLast
      * 
      * Comprueba que se devuelve el elemento que se pretende borrar

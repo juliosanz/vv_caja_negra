@@ -1,4 +1,4 @@
-package com.practica.cajanegra;
+package com.practica.cajanegra.pruebasconsultas;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -15,14 +15,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import com.cajanegra.SingleLinkedListImpl;
 
-public class PruebasExtra {
-	
+public class indexOfTest {
+
 	private static SingleLinkedListImpl<String> vacia;
 	private static SingleLinkedListImpl<String> unElemento;
 	private static SingleLinkedListImpl<String> dosElementos;
-	private static SingleLinkedListImpl<String> lista3Elem;
 	private static SingleLinkedListImpl<String> nElementos;
-	private static SingleLinkedListImpl<String> listAux;
 	private static SingleLinkedListImpl<String> listConRepetidos;
 	private static HashMap<String,SingleLinkedListImpl<String>> hmap;
 	
@@ -32,9 +30,7 @@ public class PruebasExtra {
 		vacia = new SingleLinkedListImpl<String>();
 		unElemento = new SingleLinkedListImpl<String>("A");
 		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-        lista3Elem = new SingleLinkedListImpl<String>("C", "D", "E");
 		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
-		listAux = new SingleLinkedListImpl<String>();
 		listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "M", "A", "B", "Y", "Z", "Y", "O");
 		
 		hmap = new HashMap<String,SingleLinkedListImpl<String>>();
@@ -50,19 +46,11 @@ public class PruebasExtra {
 		vacia = new SingleLinkedListImpl<String>();
 		unElemento = new SingleLinkedListImpl<String>("A");
 		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-        lista3Elem = new SingleLinkedListImpl<String>("C", "D", "E");
 		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
 		listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "M", "A", "B", "Y", "Z", "Y", "O");
 	}
-
-    // Test toString
-    @Test
-    public void testToString() {
-        assertTrue(nElementos.toString().equals("[A, B, C, D, E, F, G]"));
-        assertTrue(vacia.toString().equals("[]"));
-    }
-
-    // Test indexOf
+	
+	// Test indexOf
     @ParameterizedTest()
     @CsvSource({ "@", "[", "R"})
     public void testIndexOfInvalidos(String s) {
