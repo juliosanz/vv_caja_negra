@@ -21,12 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 public class Prueba {
 
 	 SingleLinkedListImpl<String> mylist;
-	 /*
-	  * Duda:
-	  * la lista es de string o char
-	  * 
-	  * */
-	 
+
 	 /*
 	  * Inicializamos una lista dummie cada vez que se ejecuta un test 
 	  * */
@@ -83,7 +78,7 @@ public class Prueba {
 	   "Z: 8: [L, M, N, O, P, Q, Z]",
 	   
    })
-   void addAtPos_valid_tests( String element, int pos, String expected){
+   void addAtPos_valid( String element, int pos, String expected){
 	   int size_expected=mylist.size()+1;
        mylist.addAtPos(element, pos);
        assertEquals(size_expected, mylist.size());
@@ -99,11 +94,11 @@ public class Prueba {
     * Intenta insertar el elmento {0} en la posicion 0.
     * El resultado esperado es que de una excepcion en cada ejecucion.
     * */
-   @ParameterizedTest(name= "{index} => intenta añadir el elemento {0} en la posicion 0")
+   @ParameterizedTest(name= "{index} => intenta aniadir el elemento {0} en la posicion 0")
    @CsvSource(value={
 	   "A", "B", "M", "Y", "Z", "[", "@"
    })
-   void illegalPos(String element) {
+   void addAtPos_illegalPos(String element) {
        
        assertThrows(IllegalArgumentException.class, () -> {
          mylist.addAtPos(element, 0);
@@ -139,7 +134,7 @@ public class Prueba {
 		   
    })
 
-   void fueraDelDominio(String element, int pos) {
+   void addAtPos_fueraDelDominio(String element, int pos) {
 	   String mylistExpected= mylist.toString();
 	   mylist.addAtPos(element, pos);
 	   assertEquals(mylistExpected, mylist.toString());
@@ -170,15 +165,15 @@ public class Prueba {
 	@ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no esta vacia")
 	@CsvSource(value = { 
 			
-			"A,:false",
-			"A,B:false", 
-			"A,B,C,D,E,F,G,H:false"
+			"A",
+			"A,B", 
+			"A,B,C,D,E,F,G,H"
 			
 			}, delimiter = ':')
 	
-	void testIsNotEmpty (String list, String esperado) {
+	void isEmpty_full(String list) {
 		crearLista(list);
-		assertEquals(Boolean.parseBoolean(esperado), mylist.isEmpty());
+		assertEquals(false, mylist.isEmpty());
 	}
 	/*
 	 * isEmpty
@@ -186,7 +181,7 @@ public class Prueba {
 	 * Creamos una lista vacia y comprobamos que esta vacia
 	 * */
 	@Test
-	void testIsEmpty() {
+	void isEmpty_emptylist() {
 		mylist=new SingleLinkedListImpl<String>();
 		assertEquals(true, mylist.isEmpty());
 	}
@@ -203,12 +198,14 @@ public class Prueba {
 			"A,B:[B, A]",
 			"A,B,C,D,E,F,G,H:[H, G, F, E, D, C, B, A]"},
 	delimiter = ':')
-	void testReverse (String list, String expected) {
+	void reverse_valid (String list, String expected) {
 		crearLista(list);
 		assertEquals(expected, mylist.reverse().toString());
 	}
 	
 	/*
+	 * metodo auxiliar
+	 *
 	 * convierte una lista separada por comas en un objeto SingleLinkedListImpl y lo
 	 * asigna al atributo mylist de la clase 
 	 * 
@@ -226,7 +223,7 @@ public class Prueba {
 	 * Creamos una lista vacia y comprobamos que al hacer reverse se queda como esta
 	 * */
 	@Test
-	void testReverseEmpty() {
+	void reverse_emptylist() {
 		 mylist=new SingleLinkedListImpl<String>();
 		assertEquals("[]", mylist.reverse().toString());
 
@@ -242,7 +239,7 @@ public class Prueba {
 	 * 1 si el elemento a borrar esta el primero, entoces deja la lista vacia
 	 * 2 si el elemento aparece 2 veces, lo borra ambas
 	 * */
-	@ParameterizedTest(name="{index} => Elimina de la lista la última aparicion de {0}")
+	@ParameterizedTest(name="{index} => Elimina de la lista la ultima aparicion de {0}")
 	@CsvSource(delimiter=':', value= {
 		"A: [A, B, M, Y, Z, B, Y, Z]",
 		"B: [A, B, M, A, Y, Z, Y, Z]",
@@ -253,7 +250,7 @@ public class Prueba {
 		
 
 	})
-	void testRemoveLast_valid_tests(String element, String expected) throws NoSuchElementException, EmptyCollectionException {
+	void removeLast_valid(String element, String expected) throws NoSuchElementException, EmptyCollectionException {
 		SingleLinkedListImpl<String> lista_incluye=new SingleLinkedListImpl<String>("A", "B", "M", "A", "Y", "Z", "B", "Y", "Z");
 		assertEquals(element, lista_incluye.removeLast(element));//espera elemento
 		assertEquals(expected, lista_incluye.toString());//espera lista
@@ -269,10 +266,10 @@ public class Prueba {
 		"@", "A","B", "M", "Y", "Z", "["
 
 	})
-	void testRemoveLast_emptylist(String element) {
-		SingleLinkedListImpl<String> lista_vacía=new SingleLinkedListImpl<String>();
+	void removeLast_emptylist(String element) {
+		SingleLinkedListImpl<String> lista_vacia=new SingleLinkedListImpl<String>();
 		assertThrows(EmptyCollectionException.class, () -> {
-			lista_vacía.removeLast(element);
+			lista_vacia.removeLast(element);
 		});
 	}
 	/*
@@ -288,7 +285,7 @@ public class Prueba {
 		"@", "A","B", "M", "Y", "Z", "["
 
 	})
-	void testRemoveLastNoMatch(String element) {
+	void removeLast_NoMatch(String element) {
 		SingleLinkedListImpl<String> lista=new SingleLinkedListImpl<String>("D", "E", "F", "G");
 		assertThrows(NoSuchElementException.class, () -> {
 			lista.removeLast(element);
