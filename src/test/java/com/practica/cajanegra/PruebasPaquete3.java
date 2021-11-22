@@ -15,30 +15,37 @@ import org.junit.jupiter.params.provider.CsvSource;
 import com.cajanegra.SingleLinkedListImpl;
 
 public class PruebasPaquete3 {
-  private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos, listNull;
+  private static SingleLinkedListImpl<String> lista3Elem, lista7Elem, vacia, listConRepetidos;
 	
 	@BeforeEach
-	void init() {
+    public void init() {
         lista3Elem = new SingleLinkedListImpl<String>("C", "D", "E");
         lista7Elem = new SingleLinkedListImpl<>("A", "B", "C", "D", "E", "F", "G");
 		vacia = new SingleLinkedListImpl<String>();
         listConRepetidos = new SingleLinkedListImpl<>("A", "B", "C", "A", "M", "A", "B", "Y", "Z", "Y", "O");
-        listNull = null;
 	}
-	
+
 	@ParameterizedTest()
 	@CsvSource({
 	"@",        
 	"["
 	})
-	void addLastInvalido(String s) {
+    public void addLastInvalido(String s) {
         int sizeOri = lista3Elem.size();
 		String solucion = lista3Elem.toString();
         lista3Elem.addLast(s);
-        assertEquals(sizeOri, lista3Elem.size());
+        assertEquals(sizeOri, lista3Elem.size(), "An invalid element has been wrongfully added.");
         assertEquals(lista3Elem.toString(), solucion);
 	}
 	
+    @Test
+    public void addLastInvalidoConNull() {
+      int sizeOri = lista3Elem.size();
+      assertThrows(NullPointerException.class, () -> {
+        lista3Elem.addLast(null);
+      });
+      assertEquals(lista3Elem.size(), sizeOri, "A null element has been wrongfully added");
+    }
 	
 	@ParameterizedTest()
 	@CsvSource({
@@ -48,7 +55,7 @@ public class PruebasPaquete3 {
 	"Y",
 	"Z"
 	})
-	void addLastValido(String s) {
+    public void addLastValido(String s) {
         int sizeOri = lista3Elem.size();
         lista3Elem.addLast(s);
 		String solucion = "[C, D, E, " + s + "]";
@@ -56,20 +63,28 @@ public class PruebasPaquete3 {
         assertEquals(lista3Elem.toString(), solucion);
 	}
 	
-    // Tests getAtPost
-
     @Test
-    public void testGetAtPosPosInvalidas() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            lista7Elem.getAtPos(0);
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            lista7Elem.getAtPos(lista7Elem.size() + 1);
-        });
+    public void addLastValidoListaVacia() {
+      int sizeOri = vacia.size();
+      String solucion = "[M]";
+      vacia.addLast("M");
+      assertEquals(sizeOri + 1, vacia.size());
+      assertEquals(vacia.toString(), solucion);
+    }
+
+    // Tests getAtPost
+    @Test
+    public void testGetAtPosInvalidas() {
+      assertThrows(IllegalArgumentException.class, () -> {
+        lista7Elem.getAtPos(0);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+        lista7Elem.getAtPos(lista7Elem.size() + 1);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+        vacia.getAtPos(vacia.size());
+      });
         // NO SE PRUEBA getAtPos(null) por no ser permitido por le compilador
-        assertThrows(NullPointerException.class, () -> {
-          listNull.getAtPos(1);
-        });
     }
 
     @Test
@@ -82,42 +97,35 @@ public class PruebasPaquete3 {
     }
 
     // Test toString
-
     @Test
     public void testToString() {
         assertTrue(lista7Elem.toString().equals("[A, B, C, D, E, F, G]"));
         assertTrue(vacia.toString().equals("[]"));
-        assertThrows(NullPointerException.class, () -> {
-          listNull.toString();
-        });
     }
 
     // Test indexOf
+    @ParameterizedTest()
+    @CsvSource({ "@", "[", "R"})
+    public void testIndexOfInvalidos(String s) {
+        assertThrows(NoSuchElementException.class, () -> {
+          listConRepetidos.indexOf(s); // Elem. no valido precedente/posterior
+        });
+      }
+
+      @Test
+      public void testIndexOfNull() {
+        assertThrows(NullPointerException.class, () -> {
+          listConRepetidos.indexOf(null); // Elem. nulo
+        });
+      }
 
     @Test
     public void testIndexOfValidos() {
-        assertTrue(listConRepetidos.indexOf("A") == 1); // A en primera pos.
-        assertTrue(listConRepetidos.indexOf("B") == 2); // B en segunda pos.
-        assertTrue(listConRepetidos.indexOf("M") == listConRepetidos.size() / 2); // M en pos. media
-        assertTrue(listConRepetidos.indexOf("Z") == listConRepetidos.size() - 2); // Z en penult. pos.
-        assertTrue(listConRepetidos.indexOf("O") == listConRepetidos.size()); // O en Ult. pos
-        assertNotEquals(listConRepetidos.indexOf("Y"), listConRepetidos.size() - 1); // Y repetida penult. pos. ignorada
-        assertThrows(NullPointerException.class, () -> {
-          listConRepetidos.indexOf(null); // Elem. no valido posterior
-        });
+      assertTrue(listConRepetidos.indexOf("A") == 1); // A en primera pos.
+      assertTrue(listConRepetidos.indexOf("B") == 2); // B en segunda pos.
+      assertTrue(listConRepetidos.indexOf("M") == listConRepetidos.size() / 2); // M en pos. media
+      assertTrue(listConRepetidos.indexOf("Z") == listConRepetidos.size() - 2); // Z en antepenult. pos.
+      assertNotEquals(listConRepetidos.indexOf("Y"), listConRepetidos.size() - 1); // Y repetida penult. pos. ignorada
+      assertTrue(listConRepetidos.indexOf("O") == listConRepetidos.size()); // O en Ult. pos
     }
-
-    @Test
-    public void testIndexOfInvalidos() {
-        assertThrows(NoSuchElementException.class, () -> {
-            listConRepetidos.indexOf("@"); // Elem. no valido precedente
-        });
-        assertThrows(NoSuchElementException.class, () -> {
-            listConRepetidos.indexOf("["); // Elem. no valido posterior
-        });
-        assertThrows(NullPointerException.class, () -> {
-            listConRepetidos.indexOf(null); // Elem. no valido posterior
-        });
-    }
-
 }
