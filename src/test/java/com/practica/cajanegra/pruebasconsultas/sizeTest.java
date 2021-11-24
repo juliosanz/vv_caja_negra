@@ -35,14 +35,6 @@ public class sizeTest {
 		hmap.put("nElementos", nElementos);
 	}
 	
-	@Test
-	@BeforeEach
-	public void init() {
-		vacia = new SingleLinkedListImpl<String>();
-		unElemento = new SingleLinkedListImpl<String>("A");
-		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
-	}
 
 	/*
 	 * 	El siguiente test comprueba la 

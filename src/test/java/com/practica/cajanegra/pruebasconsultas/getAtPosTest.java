@@ -13,32 +13,15 @@ import com.cajanegra.SingleLinkedListImpl;
 
 public class getAtPosTest {
 	private static SingleLinkedListImpl<String> vacia;
-	private static SingleLinkedListImpl<String> unElemento;
-	private static SingleLinkedListImpl<String> dosElementos;
+
 	private static SingleLinkedListImpl<String> nElementos;
-	private static HashMap<String,SingleLinkedListImpl<String>> hmap;
 	
-	@Test
-	@BeforeAll
-	static void setUp() {
-		vacia = new SingleLinkedListImpl<String>();
-		unElemento = new SingleLinkedListImpl<String>("A");
-		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
-		
-		hmap = new HashMap<String,SingleLinkedListImpl<String>>();
-		hmap.put("vacia", vacia);
-		hmap.put("unElemento", unElemento);
-		hmap.put("dosElementos", dosElementos);
-		hmap.put("nElementos", nElementos);
-	}
+
 	
 	@Test
 	@BeforeEach
 	public void init() {
 		vacia = new SingleLinkedListImpl<String>();
-		unElemento = new SingleLinkedListImpl<String>("A");
-		dosElementos = new SingleLinkedListImpl<String>("A", "B");
 		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
 	}
 

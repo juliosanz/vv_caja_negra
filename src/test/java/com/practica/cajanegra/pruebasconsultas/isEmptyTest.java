@@ -1,5 +1,7 @@
 package com.practica.cajanegra.pruebasconsultas;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
@@ -15,36 +17,21 @@ import com.practica.cajanegra.Utilidad;
 
 public class isEmptyTest {
 
-	private static SingleLinkedListImpl<String> vacia;
-	private static SingleLinkedListImpl<String> unElemento;
-	private static SingleLinkedListImpl<String> dosElementos;
-	private static SingleLinkedListImpl<String> nElementos;
+
 	private static SingleLinkedListImpl<String> listaAux;
-	private static HashMap<String,SingleLinkedListImpl<String>> hmap;
 	
 	@Test
 	@BeforeAll
 	static void setUp() {
-		vacia = new SingleLinkedListImpl<String>();
-		unElemento = new SingleLinkedListImpl<String>("A");
-		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
+	
 		listaAux = new SingleLinkedListImpl<String>();
 		
-		hmap = new HashMap<String,SingleLinkedListImpl<String>>();
-		hmap.put("vacia", vacia);
-		hmap.put("unElemento", unElemento);
-		hmap.put("dosElementos", dosElementos);
-		hmap.put("nElementos", nElementos);
 	}
 	
 	@Test
 	@BeforeEach
 	public void init() {
-		vacia = new SingleLinkedListImpl<String>();
-		unElemento = new SingleLinkedListImpl<String>("A");
-		dosElementos = new SingleLinkedListImpl<String>("A", "B");
-		nElementos = new SingleLinkedListImpl<String>("A", "B", "C", "D", "E", "F", "G");
+
 	}
 	
 	/*
@@ -56,15 +43,15 @@ public class isEmptyTest {
 	    @ParameterizedTest(name= "{index} => Comprueba que la lista [{0}] no esta vacia")
 	    @CsvSource(value = { 
 	            
-	            "A,:false",
-	            "A,B:false", 
-	            "A,B,C,D,E,F,G,H:false"
+	            "A",
+	            "A,B", 
+	            "A,B,C,D,E,F,G,H"
 	            
 	            }, delimiter = ':')
 	    
-	    void testIsNotEmpty (String list, String esperado) {
+	    void testIsNotEmpty (String list) {
 	        listaAux = Utilidad.crearLista(list);
-	        assertEquals(Boolean.parseBoolean(esperado), listaAux.isEmpty());
+	        assertFalse(listaAux.isEmpty());
 	    }
 	    
 	    /*
@@ -75,6 +62,6 @@ public class isEmptyTest {
 	    @Test
 	    void testIsEmpty() {
 	        listaAux=new SingleLinkedListImpl<String>();
-	        assertEquals(true, listaAux.isEmpty());
+	        assertTrue(listaAux.isEmpty()); 
 	    }
 }

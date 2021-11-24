@@ -15,11 +15,7 @@ public class addAtPosTest {
 	
 	private static SingleLinkedListImpl<String> listAddAtPos;
 	
-	@Test
-	@BeforeAll
-	static void setUp() {
-		listAddAtPos = new SingleLinkedListImpl<String>("L", "M", "N", "O", "P", "Q");
-	}
+	
 	
 	@Test
 	@BeforeEach
