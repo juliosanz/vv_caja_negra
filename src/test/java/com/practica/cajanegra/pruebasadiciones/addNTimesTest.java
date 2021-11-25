@@ -21,7 +21,7 @@ public class addNTimesTest {
 	private static SingleLinkedListImpl<String> nElementos;
 	
 	
-	@Test
+	
 	@BeforeEach
 	public void init() {
 		vacia = new SingleLinkedListImpl<String>();

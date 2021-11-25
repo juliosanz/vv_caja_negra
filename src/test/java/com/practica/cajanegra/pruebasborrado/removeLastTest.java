@@ -24,7 +24,7 @@ public class removeLastTest {
 	private static SingleLinkedListImpl<String> nElementos;
 	private static HashMap<String,SingleLinkedListImpl<String>> hmap;
 	
-	@Test
+
 	@BeforeAll
 	static void setUp() {
 		vacia = new SingleLinkedListImpl<String>();
@@ -39,7 +39,7 @@ public class removeLastTest {
 		hmap.put("nElementos", nElementos);
 	}
 	
-	@Test
+	
 	@BeforeEach
 	public void init() {
 		vacia = new SingleLinkedListImpl<String>();

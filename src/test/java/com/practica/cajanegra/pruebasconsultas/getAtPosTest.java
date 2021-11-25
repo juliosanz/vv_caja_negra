@@ -18,7 +18,7 @@ public class getAtPosTest {
 	
 
 	
-	@Test
+	
 	@BeforeEach
 	public void init() {
 		vacia = new SingleLinkedListImpl<String>();

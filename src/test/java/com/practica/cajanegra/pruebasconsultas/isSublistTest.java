@@ -25,7 +25,7 @@ public class isSublistTest {
 	 * lista utilizada para asegurarnos de la atomicidad en cada metodo.
 	 * 
 	 */
-	@Test
+	
 	@BeforeEach
 	public void init() {
 		vacia = new SingleLinkedListImpl<String>();

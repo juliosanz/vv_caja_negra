@@ -17,7 +17,7 @@ public class toStringTest {
 	private static SingleLinkedListImpl<String> nElementos;
 
 	
-	@Test
+	
 	@BeforeAll
 	static void setUp() {
 		vacia = new SingleLinkedListImpl<String>();

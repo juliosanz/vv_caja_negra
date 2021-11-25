@@ -20,7 +20,7 @@ public class sizeTest {
 	private static SingleLinkedListImpl<String> nElementos;
 	private static HashMap<String,SingleLinkedListImpl<String>> hmap;
 	
-	@Test
+	
 	@BeforeAll
 	static void setUp() {
 		vacia = new SingleLinkedListImpl<String>();

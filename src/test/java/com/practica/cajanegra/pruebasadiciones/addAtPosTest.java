@@ -17,7 +17,7 @@ public class addAtPosTest {
 	
 	
 	
-	@Test
+	
 	@BeforeEach
 	public void init() {
 		listAddAtPos = new SingleLinkedListImpl<String>("L", "M", "N", "O", "P", "Q");

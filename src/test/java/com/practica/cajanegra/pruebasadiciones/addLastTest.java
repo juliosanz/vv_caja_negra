@@ -19,7 +19,7 @@ public class addLastTest {
 	
 
 	
-	@Test
+	
 	@BeforeEach
 	public void init() {
 		vacia = new SingleLinkedListImpl<String>();		

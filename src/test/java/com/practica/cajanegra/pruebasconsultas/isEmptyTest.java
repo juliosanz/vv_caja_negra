@@ -20,7 +20,7 @@ public class isEmptyTest {
 
 	private static SingleLinkedListImpl<String> listaAux;
 	
-	@Test
+	
 	@BeforeAll
 	static void setUp() {
 	
@@ -28,11 +28,7 @@ public class isEmptyTest {
 		
 	}
 	
-	@Test
-	@BeforeEach
-	public void init() {
 
-	}
 	
 	/*
 	    * isEmpty

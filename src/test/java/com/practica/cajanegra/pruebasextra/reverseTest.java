@@ -18,7 +18,7 @@ public class reverseTest {
 
 	private static SingleLinkedListImpl<String> listaAux;
 	
-	@Test
+	
 	@BeforeAll
 	static void setUp() {
 	

@@ -20,7 +20,7 @@ public class indexOfTest {
 
 	private static SingleLinkedListImpl<String> listConRepetidos;
 	
-	@Test
+	
 	@BeforeAll
 	static void setUp() {
 
@@ -28,7 +28,7 @@ public class indexOfTest {
 
 	}
 	
-	@Test
+	
 	@BeforeEach
 	public void init() {
 	
