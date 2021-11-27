@@ -118,7 +118,7 @@ public class Utilidad {
     public static SingleLinkedListImpl<String> crearLista(String list) {
     	SingleLinkedListImpl<String> mylist = new SingleLinkedListImpl<String>();
         String[ ] elements = list.split(",");
-         mylist = new SingleLinkedListImpl();
+        mylist = new SingleLinkedListImpl<String>();
         for (String letra: elements)
             mylist.addLast(letra);
         return mylist;
