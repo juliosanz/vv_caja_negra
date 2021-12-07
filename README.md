@@ -37,6 +37,12 @@ Se han definido 5 de estas suites:
 Para ejecutar a una suite se usa el parámetro `-DrunSuite` al que se le tiene que indicar el nombre de la suite que se quiere ejecutar de la siguiente manera: 
 
 ```
+mvn clean install -DrunSuite=<nombre_suite>
+```
+
+Un ejemplo sería:
+
+```
 mvn clean install -DrunSuite=PruebasBorrado
 ```
 
