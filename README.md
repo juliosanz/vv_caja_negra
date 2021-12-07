@@ -46,10 +46,22 @@ También, se puede ejecutar más de una suite a la vez separando los nombres de 
 mvn clean install -DrunSuite=PruebasConsultas,PruebasExtra
 ```
 
-## Instrucciones para utilizar este proyecto
+Esta configuración también permite ejecutar los test de una clase individual. Por ejemplo:
 
-* Cada alumno debe crearse un usuario de Github
-* Un miembro del grupo debe hacer fork a este proyecto y añadir al repositorio forkeado a sus compañeros de grupo y al profesor como colaboradores.
-* Descargar el proyecto utilizando git clone desde el terminal o desde el IDE.
-* Seguir las indicaciones del enunciado para añadir las dependencias necesarias para empezar a realizar las pruebas
-* Modificar este fichero añadiendo el número de grupo correspondiente y las instrucciones para ejecutar la práctica
+```
+mvn clean install -DrunSuite=indexOfTest -DfailIfNoTests=true
+```
+
+Ejecuta exclusivamente los test definidos en la clase [indexOfTest.java](indexOfTest.java). El parámetro `-DfailIfNoTests` es un parámetro opcional de _Surefire_ que por defecto está inicializado a `false` que permite fallar la compilación si por alguna razón no se ha ejecutado ningún tests. Este caso puede producirse si se escribe mal el nombre de la clase de pruebas que se quiere ejecutar y Maven no consigue ningún test por ejemplo.
+
+Nota técnica: A diferencia de las declaraciones de las Suites, no se ha agregado ningún `DisplayName` para los tests de clases individuales ya que un bug de _Surefire_ no permite que se muestren por la consola de comandos como debería.
+
+
+## Checklist de entrega del repo
+
+- [x] Cada alumno debe crearse un usuario de Github
+- [X] Un miembro del grupo debe hacer fork a este proyecto y añadir al repositorio forkeado a sus compañeros de grupo y al profesor como colaboradores.
+- [X] Descargar el proyecto utilizando git clone desde el terminal o desde el IDE.
+- [X] Seguir las indicaciones del enunciado para añadir las dependencias necesarias para empezar a realizar las pruebas
+- [X] Modificar este fichero añadiendo el número de grupo correspondiente y las instrucciones para ejecutar la práctica
+- [ ] Asegurarse que el profesor tiene acceso al repo de git
