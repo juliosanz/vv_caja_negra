@@ -52,7 +52,7 @@ Esta configuración también permite ejecutar los test de una clase individual. 
 mvn clean install -DrunSuite=indexOfTest -DfailIfNoTests=true
 ```
 
-Ejecuta exclusivamente los test definidos en la clase [indexOfTest.java](indexOfTest.java). El parámetro `-DfailIfNoTests` es un parámetro opcional de _Surefire_ que por defecto está inicializado a `false` que permite fallar la compilación si por alguna razón no se ha ejecutado ningún tests. Este caso puede producirse si se escribe mal el nombre de la clase de pruebas que se quiere ejecutar y Maven no consigue ningún test por ejemplo.
+Ejecuta exclusivamente los test definidos en la clase [indexOfTest.java](src/test/java/com/practica/cajanegra/pruebasconsultas/indexOfTest.java). El parámetro `-DfailIfNoTests` es un parámetro opcional de _Surefire_ que por defecto está inicializado a `false` que permite fallar la compilación si por alguna razón no se ha ejecutado ningún tests. Este caso puede producirse si se escribe mal el nombre de la clase de pruebas que se quiere ejecutar y Maven no consigue ningún test por ejemplo.
 
 Nota técnica: A diferencia de las declaraciones de las Suites, no se ha agregado ningún `DisplayName` para los tests de clases individuales ya que un bug de _Surefire_ no permite que se muestren por la consola de comandos como debería.
 
